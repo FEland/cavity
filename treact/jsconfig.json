@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.1"
+  },
+  "compilerOptions": {
+    "baseUrl": "src"
+  },
+  "include": ["src"]
+}
