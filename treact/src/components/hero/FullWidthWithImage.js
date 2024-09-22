@@ -4,6 +4,10 @@ import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
 
 import Header, { LogoLink, NavLinks, NavLink as NavLinkBase } from "../headers/light.js";
+// import { useNavigate } from 'react-router-dom';
+
+import { Link } from 'react-router-dom';
+// import DenGrid from 'components/cards/DenGrid.js'
 
 const StyledHeader = styled(Header)`
   ${tw`justify-between`}
@@ -45,25 +49,24 @@ export default ({
   navLinks = [
     <NavLinks key={1}>
       <NavLink href="#">About</NavLink>
-      <NavLink href="#">Blog</NavLink>
-      <NavLink href="#">Pricing</NavLink>
-      <NavLink href="#">Procedures</NavLink>
-      <NavLink href="#">Login</NavLink>
+      <NavLink href="#/Search">Search</NavLink>
+      <NavLink href="#/Pricing">Pricing</NavLink>
+      <NavLink href="#/Procedures">Procedures</NavLink>
+      <NavLink href="#/Login">Login</NavLink>
 
     </NavLinks>
   ],
   heading = (
-    <>
-      Find The Best Dentists
+    <>Find The Best Dentists
       <wbr />
       <br />
       <span tw="text-primary-500">anywhere you go.</span>
     </>
   ),
   description = "Stop stressing. Tooth hurts? We can help. Finding a Dentist has never been so easy.",
-  primaryActionUrl = "#",
+  primaryActionUrl = "#login",
   primaryActionText = "Sign Up",
-  secondaryActionUrl = "#",
+  secondaryActionUrl = "#search",
   secondaryActionText = "Search Dentists "
 }) => {
   return (
@@ -75,13 +78,15 @@ export default ({
             <Heading>{heading}</Heading>
             <Paragraph>{description}</Paragraph>
             <Actions>
-              <a href={primaryActionUrl} className="action primaryAction">
+
+              <Link to={primaryActionUrl} className="action primaryAction">
                 {primaryActionText}
-              </a>
-              <a href={secondaryActionUrl} className="action secondaryAction">
+              </Link>
+              <Link to={secondaryActionUrl} className="action secondaryAction">
                 {secondaryActionText}
-              </a>
+              </Link>
             </Actions>
+
           </Content>
         </LeftColumn>
         <RightColumn></RightColumn>

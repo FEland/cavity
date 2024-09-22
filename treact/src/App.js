@@ -83,7 +83,6 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 
 /* Ready Made Pages (from demos folder) */
 // import EventLandingPage from "demos/EventLandingPage.js";
-import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
 // import AgencyLandingPage from "demos/AgencyLandingPage.js";
 // import SaaSProductLandingPage from "demos/SaaSProductLandingPage.js";
 // import RestaurantLandingPage from "demos/RestaurantLandingPage.js";
@@ -104,7 +103,11 @@ import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
 // import MainLandingPage from "MainLandingPage.js";
 // import ThankYouPage from "ThankYouPage.js";
 
+// import DenGrid from 'components/cards/DenGrid.js'
+
+import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 export default function App() {
   // If you want to disable the animation just use the disabled `prop` like below on your page's component
@@ -115,10 +118,11 @@ export default function App() {
     <>
       <GlobalStyles />
       <Router>
+
         <Routes>
           {/* <Route path="/components/:type/:subtype/:name" element={<ComponentRenderer />} /> */}
           {/* <Route path="/components/:type/:name" element={<ComponentRenderer />} /> */}
-          {/* <Route path="/thank-you" element={<ThankYouPage />} /> */}
+          {/* <Route path="#search" element={<DenGrid />} /> */}
           <Route path="/" element={<HotelTravelLandingPage />} />
         </Routes>
       </Router>

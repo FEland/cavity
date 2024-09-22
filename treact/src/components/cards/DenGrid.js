@@ -26,6 +26,8 @@ import { ReactComponent as ChevronLeftIcon } from "feather-icons/dist/icons/chev
 import { ReactComponent as ChevronRightIcon } from "feather-icons/dist/icons/chevron-right.svg";
 import 'leaflet/dist/leaflet.css';
 import customMarkerImage from 'images/tooth.png'; // Update with your image path
+// import Autocomplete from './Autocomplete.js';
+
 
 
 
@@ -33,8 +35,80 @@ const GridContainer = styled.div`
   ${tw`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4`}
 `;
 
+// const Card = styled.div`
+//   ${tw`p-4 bg-gray-100 rounded-lg shadow-md cursor-pointer`}
+// `;
+
 const Card = styled.div`
-  ${tw`p-4 bg-gray-100 rounded-lg shadow-md cursor-pointer`}
+  ${tw`relative p-4 bg-gray-100 rounded-lg shadow-md cursor-pointer`}
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #e2e8f0; /* Change to your desired hover color */
+  }
+
+  &:hover::after {
+    content: "Click for more info";
+    ${tw`absolute inset-0 flex items-end justify-end text-lg font-semibold text-gray-700`}
+  }
+
+  @media (max-width: 640px) {
+    &:hover::after {
+      content: "";
+    }
+
+    &::after {
+      content: "...";
+      ${tw`absolute items-end justify-end text-lg font-semibold text-gray-700`}
+    }
+  }
+`;
+
+const SearchField = styled.div`
+  ${tw`relative w-3/5 max-w-lg p-4 bg-white border border-gray-300 rounded-full shadow-md`}
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #f7fafc; /* Change to your desired hover color */
+  }
+
+  input {
+    ${tw`w-full py-3 pl-4 pr-12 text-gray-700 bg-transparent border-none focus:outline-none`}
+    padding-right: 2.5rem; /* Ensure enough room for the placeholder text */
+
+  }
+
+  .icon {
+    ${tw`absolute inset-y-0 right-0 flex items-center pr-3`}
+  }
+
+  @media (max-width: 640px) {
+    input {
+      ${tw`py-2 pl-3 pr-10`}
+    }
+  }
+`;
+
+const SuggestionsList = styled.ul`
+  ${tw`absolute w-full bg-white border border-gray-300 rounded-lg mt-1 max-h-screen overflow-y-auto shadow-lg z-10`}
+  width: 80%; /* Ensures the width matches the SearchField */
+
+  li {
+    ${tw`px-4 py-2 cursor-pointer`}
+    transition: background-color 0.3s, font-weight 0.3s;
+
+    &:hover {
+      background-color: #f1f5f9; /* Light gray background on hover */
+    }
+
+    &.hovered {
+      background-color: #e2e8f0; /* Slightly darker gray for hovered item */
+    }
+
+    &.pressed {
+      font-weight: bold;
+    }
+  }
 `;
 
 // const PopupContainer = styled.div`
@@ -287,6 +361,7 @@ const fetchProfileImage = async () => {
 //   };
   const [search, setSearch] = useState('');
 
+
   const resetSearch = (value) => {
     setPage(0);
     setSearch(value);
@@ -297,12 +372,73 @@ const fetchProfileImage = async () => {
     setPageSize(value);
   };
 
-  const [searchField, setSearchField] = useState('Name');
+  const [searchField, setSearchField] = useState('Dentist_Type');
 
   const filteredDentists = dentists.filter(dentist =>
     dentist[searchField].toLowerCase().includes(search.toLowerCase())
   );
 
+
+  // const [query, setQuery] = useState('');
+  const [suggestions, setSuggestions] = useState([]);;
+
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [pressedIndex, setPressedIndex] = useState(null);
+
+  const setChosenItem = ([index, value]) => {
+    setPressedIndex(index);
+    resetSearch(value.name);
+  };
+
+
+  // const [inputValue, setInputValue] = useState('');
+  // const [chosenItem, setChosenItem] = useState('');
+
+  // const handleItemClick = (item) => {
+  //   setInputValue(item);
+  //   setChosenItem(item);
+  //   console.log('Chosen item:', item);
+  // };
+
+
+
+  useEffect(() => {
+    if (search.length > 0) {
+        if (searchField === "Dentist_Type"){
+          const fetchSuggestions = async () => {
+            const { data, error } = await supabase
+              .from('dentist_types')
+              .select('name')
+              .ilike('name', `%${search}%`)
+              .range(0,4);
+
+            if (!error) {
+              setSuggestions(data);
+            }
+          };
+          fetchSuggestions();
+        } 
+        else {
+          const fetchSuggestions = async () => {
+            const { data, error } = await supabase
+              .from('Dentists1')
+              .select(`${searchField}`)
+              .ilike(`${searchField}`, `%${search}%`)
+              .range(0,4);
+            if (!error) {
+              setSuggestions(data);
+            }
+            else {
+              console.log("failed");
+            }
+          };
+          console.log("here");
+          console.log(suggestions);
+          fetchSuggestions();
+        } 
+        // fetchSuggestions();
+      }
+  }, [search, searchField, suggestions]);
 
 
   const drawMap = () => (
@@ -382,6 +518,10 @@ const fetchProfileImage = async () => {
   return (
     <div>
 
+
+{/* <Autocomplete />*/}
+
+
         <HeadingWithControl>
           <Heading>Popular Dentists</Heading>
           <Controls>
@@ -398,30 +538,58 @@ const fetchProfileImage = async () => {
         </HeadingWithControl>
 
 
+
+        {/* <HeadingWithControl> */}
+        {/* <Heading> */}
         <div>
-      {/* <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onFocus={() => setIsOpen(true)}
-        placeholder="Search..."
-      /> */}
+  <SearchField>
+      <input
+          type="text"
+          placeholder={`Search by Dentist, Location, Speciality, Procedure...`}
+          value={search}
+          onChange={(e) => resetSearch(e.target.value)}
+          onMouseLeave={() => setHoveredIndex(null)}
+          className="w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+          
+          // onFocus={() => setIsOpen(true)}
+        />
+        <div className="icon">
+          <svg className="w-5 h-5 text-gray-500" fill="blue" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M12.9 14.32a8 8 0 111.414-1.414l4.243 4.243a1 1 0 01-1.414 1.414l-4.243-4.243zM8 14a6 6 0 100-12 6 6 0 000 12z" clipRule="evenodd" />
+          </svg>
+        </div>
+</SearchField>
+        {suggestions.length > 1 && (
+                <SuggestionsList>
 
-    <input
-        type="text"
-        // placeholder={`Search... ${searchField.toLowerCase()}`}
-        placeholder={`Search...`}
+             {suggestions.map((item, index) => (
+              <li key={index}
+                  // onMouseEnter={() => suggestSearchHover([item, index])}
+                  className={`${hoveredIndex === index ? 'hovered' : ''} ${pressedIndex === index ? 'pressed' : ''}`}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  onClick={(e) => setChosenItem([index, item])}
 
-        value={search}
-        onChange={(e) => resetSearch(e.target.value)}
-        // onFocus={() => setIsOpen(true)}
-      />
+              >{item.name}
+              </li>
+            ))}
+                  </SuggestionsList>
+
+        )}
+        </div>
+        {/* </Heading> */}
+        <Controls>
+
       <select onChange={(e) => setSearchField(e.target.value)} value={searchField}>
         <option value="Name">Name</option>
-        <option value="County">Address</option>
+        <option value="Town_City">Address</option>
         <option value="Phone_Number">Phone Number</option>
         <option value="Dentist_Type">Type of Dentist</option>
       </select>
+      </Controls>
+
+      {/* </HeadingWithControl> */}
+
       {/* {isOpen && results.length > 0 && (
         <ul>
           {results.map((item, index) => (
@@ -431,7 +599,6 @@ const fetchProfileImage = async () => {
           ))}
         </ul>
       )} */}
-    </div>
 
 
       <Container>
@@ -451,7 +618,7 @@ const fetchProfileImage = async () => {
           <Card key={index} onClick={() => openPopup(dentist)}>
             <Title>{dentist.Name}</Title>
             <HighlightedTextInverse>{dentist.Dentist_Type}</HighlightedTextInverse>
-            <i>{dentist.County}</i>
+            <i>{dentist.Town_City}</i>
           </Card>
         ))}
       </GridContainer>
@@ -490,4 +657,5 @@ const fetchProfileImage = async () => {
     </div>
   );
 };
+
 
