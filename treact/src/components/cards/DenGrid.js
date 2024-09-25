@@ -224,7 +224,7 @@ export default () => {
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(20);
 
-//   const [imageSrc, setImgSrc] = useState("https://loremflickr.com/200/200?random=");
+  // const [imageSrc, setImgSrc] = useState("https://loremflickr.com/200/200?random=");
 
   const startIndex = page * pageSize;
   const endIndex = startIndex + pageSize;
@@ -375,7 +375,7 @@ const fetchProfileImage = async () => {
   const [searchField, setSearchField] = useState('Dentist_Type');
 
   const filteredDentists = dentists.filter(dentist =>
-    dentist[searchField].toLowerCase().includes(search.toLowerCase())
+    dentist[searchField].includes(search.toLowerCase())
   );
 
 
@@ -440,11 +440,14 @@ const fetchProfileImage = async () => {
       }
   }, [search, searchField, suggestions]);
 
+  // const baseUrl =`https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${process.env.REACT_APP_thunderForestKey }`;
 
   const drawMap = () => (
     // <PopupContainer>
     // <PopupContent>
     <div>
+
+
       {/* <CloseButton onClick={closePopup}>×</CloseButton> */}
       {/* <button onClick={closePopup}>Close</button> */}
 
@@ -464,6 +467,7 @@ const fetchProfileImage = async () => {
                   </RatingsInfo>
                 </TitleReviewContainer>
 
+             
                 <SecondaryInfoContainer>
                   <IconWithText>
                     <IconContainer>
@@ -487,6 +491,7 @@ const fetchProfileImage = async () => {
                     <PhoneIcon />
                     <PhoneNumber> {selectedDentist.Phone_Number}</PhoneNumber>
                   </PhoneNumbersInfo>
+   
                 <Description>{selectedDentist.Treatment}</Description>
               </TextInfo>
 
@@ -501,7 +506,7 @@ const fetchProfileImage = async () => {
 
         }
         }  >
-        <TileLayer url="https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=97720df4d6654597a9e74d24e57432e0" />
+        <TileLayer url={`https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${process.env.REACT_APP_thunderForestKey }`} />
         <Marker position={position} icon={blueArrowIcon} >
           <LeafletPopup>{selectedDentist.Address_1}</LeafletPopup>
         </Marker>
