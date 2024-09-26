@@ -70,34 +70,34 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
    * changing the defaultLinks variable below below.
    * If you manipulate links here, all the styling on the links is already done for you. If you pass links yourself though, you are responsible for styling the links or use the helper styled components that are defined here (NavLink)
    */
-  const defaultLinks = [
-    <NavLinks key={4}>
-      <NavLink href="/#">About</NavLink>
-      {/* <NavLink href="/#">Blog</NavLink> */}
-      <NavLink href="/#">Pricing</NavLink>
-      <NavLink href="/#">Procedures</NavLink>
-      {/* <NavLink href="/#">Contact Us</NavLink> */}
+//   const defaultLinks = [
+//     <NavLinks key={4}>
+//       <NavLink href="/#">About</NavLink>
+//       {/* <NavLink href="/#">Blog</NavLink> */}
+//       <NavLink href="/#">Pricing</NavLink>
+//       <NavLink href="/#">Procedures</NavLink>
+//       {/* <NavLink href="/#">Contact Us</NavLink> */}
 
 
-      <NavLink href="/#" tw="lg:ml-12!">
-        Login
-      </NavLink>
-      <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/#">Sign Up</PrimaryLink>
-    </NavLinks>
-  ];
+//       <NavLink href="/#" tw="lg:ml-12!">
+//         Login
+//       </NavLink>
+//       <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/#">Sign Up</PrimaryLink>
+//     </NavLinks>
+//   ];
 
   const { showNavLinks, animation, toggleNavbar } = useAnimatedNavToggler();
   const collapseBreakpointCss = collapseBreakPointCssMap[collapseBreakpointClass];
  
-  // const scrollToSection = (id) => {
-  //   const element = document.getElementById(id);
-  //   if (element) {
-  //     window.scrollTo({
-  //       top: element.offsetTop,
-  //       behavior: 'smooth',
-  //     });
-  //   }
-  // };
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   const defaultLogoLink = (
     <LogoLink href="/">
@@ -107,19 +107,114 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   );
 
   logoLink = logoLink || defaultLogoLink;
-  links = links || defaultLinks;
+//   links = links || defaultLinks;
 
   return (
     <Header className={className || "header-light"}>
       <DesktopNavLinks css={collapseBreakpointCss.desktopNavLinks}>
         {logoLink}
-        {links}
+        <header className="fixed w-full bg-white shadow">
+          <nav className="flex justify-around p-20">
+
+            <NavLinks key={8}>
+              <NavLink href="/#FAQ" >
+              <button onClick={() => scrollToSection('FAQ')} >FAQ</button>
+              </NavLink>
+              <NavLink href="/#Search">
+              <button onClick={() => scrollToSection('search')} >Search</button>
+              </NavLink>
+              {/* <NavLink href="/#">Blog</NavLink> */}
+              <NavLink href="/#Main">
+                <button onClick={() => scrollToSection('MainFeature')} >Main Feature</button>
+              </NavLink>
+              {/* <NavLinks href="/#Home">
+                <button onClick={() => scrollToSection('home')} >Home</button>
+              </NavLinks> */}
+
+              <NavLink href="/#Procedures"> 
+                <button onClick={() => scrollToSection('procedures')} >Procedures</button>
+              </NavLink>
+
+              <NavLinks href="/#Features">
+                <button onClick={() => scrollToSection('features')} >Features</button>
+              </NavLinks>
+              <NavLink href="/#Footer">
+              <button onClick={() => scrollToSection('footer')} >Footer</button>
+              </NavLink>
+
+
+              {/* <NavLink href="/#">Contact Us</NavLink> */}
+
+              <NavLink href="/#" tw="lg:ml-12!">
+                Login
+              </NavLink>
+              <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/#">Sign Up</PrimaryLink>
+            </NavLinks>
+
+          {/* <NavLinks ><button onClick={() => scrollToSection('home')} >Home</button>
+            <button onClick={() => scrollToSection('FAQ')} >FAQ</button>
+            <button onClick={() => scrollToSection('MainFeature')} >Main Feature</button>
+            <button onClick={() => scrollToSection('footer')} >Footer</button>
+            <button onClick={() => scrollToSection('search')} >Search</button>
+            <button onClick={() => scrollToSection('features')} >Features</button>
+            </NavLinks> */}
+          </nav>
+        </header>
       </DesktopNavLinks>
 
       <MobileNavLinksContainer css={collapseBreakpointCss.mobileNavLinksContainer}>
         {logoLink}
         <MobileNavLinks initial={{ x: "150%", display: "none" }} animate={animation} css={collapseBreakpointCss.mobileNavLinks}>
-          {links}
+          {/* {links} */}
+          {/* <header className="fixed w-full bg-white shadow">
+          <nav className="flex justify-around p-20">
+            <button onClick={() => scrollToSection('home')} >Home</button>
+            <button onClick={() => scrollToSection('FAQ')} >FAQ</button>
+            <button onClick={() => scrollToSection('MainFeature')} >Main Feature</button>
+            <button onClick={() => scrollToSection('footer')} >Footer</button>
+            <button onClick={() => scrollToSection('search')} >Search</button>
+            <button onClick={() => scrollToSection('features')} >Features</button>
+          </nav>
+        </header>
+
+ */}
+
+        <NavLinks key={8}>
+              <NavLink href="/#FAQ" >
+              <button onClick={() => scrollToSection('FAQ')} >FAQ</button>
+              </NavLink>
+              <NavLink href="/#Search">
+              <button onClick={() => scrollToSection('search')} >Search</button>
+              </NavLink>
+              {/* <NavLink href="/#">Blog</NavLink> */}
+              <NavLink href="/#Main">
+                <button onClick={() => scrollToSection('MainFeature')} >Main Feature</button>
+              </NavLink>
+              {/* <NavLinks href="/#Home">
+                <button onClick={() => scrollToSection('home')} >Home</button>
+              </NavLinks> */}
+
+              <NavLink href="/#Procedures"> 
+                <button onClick={() => scrollToSection('procedures')} >Procedures</button>
+              </NavLink>
+
+              <NavLinks href="/#Features">
+                <button onClick={() => scrollToSection('features')} >Features</button>
+              </NavLinks>
+              <NavLink href="/#Footer">
+              <button onClick={() => scrollToSection('footer')} >Footer</button>
+              </NavLink>
+
+
+              {/* <NavLink href="/#">Contact Us</NavLink> */}
+
+              <NavLink href="/#" tw="lg:ml-12!">
+                Login
+              </NavLink>
+              <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/#">Sign Up</PrimaryLink>
+            </NavLinks>
+
+
         </MobileNavLinks>
         <NavToggle onClick={toggleNavbar} className={showNavLinks ? "open" : "closed"}>
           {showNavLinks ? <CloseIcon tw="w-6 h-6" /> : <MenuIcon tw="w-6 h-6" />}

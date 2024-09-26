@@ -50,6 +50,7 @@ export default ({textOnLeft = false}) => {
   ]
 
   return (
+    <div id="features">
     <Container>
       <TwoColumn>
         <ImageColumn>
@@ -71,5 +72,6 @@ export default ({textOnLeft = false}) => {
         </TextColumn>
       </TwoColumn>
     </Container>
+    </div>
   );
 };

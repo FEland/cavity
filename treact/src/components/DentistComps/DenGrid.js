@@ -89,17 +89,6 @@ const SearchField = styled.div`
   }
 `;
 
-const Actions = styled.div`
-  ${tw`relative max-w-md text-center mx-auto lg:mx-0`}
-  input {
-    ${tw`sm:pr-48 pl-8 py-4 sm:py-5 rounded-full border-2 w-full font-medium focus:outline-none transition duration-300  focus:border-primary-500 hover:border-gray-500`}
-  }
-  button {
-    ${tw`w-full sm:absolute right-0 top-0 bottom-0 bg-primary-500 text-gray-100 font-bold mr-2 my-4 sm:my-2 rounded-full py-4 flex items-center justify-center sm:w-40 sm:leading-none focus:outline-none hover:bg-primary-900 transition duration-300`}
-  }
-`;
-
-
 const SuggestionsList = styled.ul`
   ${tw`absolute w-full bg-white border border-gray-300 rounded-lg mt-1 max-h-screen overflow-y-auto shadow-lg z-10`}
   width: 80%; /* Ensures the width matches the SearchField */
@@ -557,7 +546,6 @@ const fetchProfileImage = async () => {
         {/* <HeadingWithControl> */}
         {/* <Heading> */}
         <div>
-
   <SearchField>
       <input
           type="text"
@@ -569,17 +557,12 @@ const fetchProfileImage = async () => {
           
           // onFocus={() => setIsOpen(true)}
         />
-                <Actions>
-
         <div className="icon">
           <svg className="w-5 h-5 text-gray-500" fill="blue" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M12.9 14.32a8 8 0 111.414-1.414l4.243 4.243a1 1 0 01-1.414 1.414l-4.243-4.243zM8 14a6 6 0 100-12 6 6 0 000 12z" clipRule="evenodd" />
           </svg>
         </div>
-        </Actions>
-
 </SearchField>
-
         {suggestions.length > 1 && (
                 <SuggestionsList>
 

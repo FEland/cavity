@@ -4,12 +4,17 @@ import tw from "twin.macro";
 import { css } from "styled-components/macro"; //eslint-disable-line
 import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings.js";
 import { SectionDescription } from "components/misc/Typography.js";
-import { Container, ContentWithPaddingXl } from "components/misc/Layouts.js";
+// import {Container as ContainerBase } from "components/misc/Layouts.js"
+
+import { Container as ContainerBase, ContentWithPaddingXl } from "components/misc/Layouts.js";
 import { ReactComponent as ArrowRightIcon } from "images/arrow-right-icon.svg";
 import SupportIconImage from "images/support-icon.svg";
 import ShieldIconImage from "images/shield-icon.svg";
 import ShopIcon from "images/simple-icon.svg";
 import { ReactComponent as SvgDecoratorBlob3 } from "images/svg-decorator-blob-3.svg";
+
+const Container = tw(ContainerBase)`bg-blue-300 -mx-8`
+// const Content = tw.div`max-w-screen-xl mx-auto py-20 lg:py-24`;
 
 const Heading = tw(SectionHeading)``;
 const Subheading = tw(SubheadingBase)`text-center mb-3`;
@@ -66,7 +71,7 @@ export default ({
     },
     {
       imageSrc: ShopIcon,
-      title: "Shop with Ease",
+      title: "Book with Ease",
       description: "No more headaches. What you see is what you get",
       url: "https://reddit.com"
     }
@@ -86,7 +91,9 @@ export default ({
    *  4) url - the url that the card should goto on click
    */
   return (
+    <div id="MainFeature">
     <Container>
+      {/* <Content> */}
       <ContentWithPaddingXl>
         {subheading && <Subheading>{subheading}</Subheading>}
         {heading && <Heading>{heading}</Heading>}
@@ -94,7 +101,9 @@ export default ({
         <ThreeColumnContainer>
           {cards.map((card, i) => (
             <Column key={i}>
-              <Card href={card.url}>
+              {/* <Card href={card.url}> */}
+              <Card >
+
                 <span className="imageContainer" css={imageContainerCss}>
                   <img src={card.imageSrc} alt="" css={imageCss} />
                 </span>
@@ -112,6 +121,8 @@ export default ({
         </ThreeColumnContainer>
       </ContentWithPaddingXl>
       <DecoratorBlob />
+      {/* </Content> */}
     </Container>
+    </div>
   );
 };

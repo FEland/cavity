@@ -71,12 +71,19 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
    * If you manipulate links here, all the styling on the links is already done for you. If you pass links yourself though, you are responsible for styling the links or use the helper styled components that are defined here (NavLink)
    */
   const defaultLinks = [
-    <NavLinks key={4}>
+    <NavLinks key={1}>
       <NavLink href="/#">About</NavLink>
       {/* <NavLink href="/#">Blog</NavLink> */}
       <NavLink href="/#">Pricing</NavLink>
       <NavLink href="/#">Procedures</NavLink>
       {/* <NavLink href="/#">Contact Us</NavLink> */}
+      
+      <NavLink href="#" onClick={() => scrollToSection('home')}> Home </NavLink>
+      <NavLink href="FAQ" onClick={() => scrollToSection('FAQ')} > FAQ </NavLink>
+      <NavLink href="MainFeature" onClick={() => scrollToSection('MainFeature')} > Main Feature </NavLink>
+      <NavLink href="footer" onClick={() => scrollToSection('footer')} > Footer </NavLink>
+      <NavLink href="search" onClick={() => scrollToSection('search')} > Search </NavLink>
+      <NavLink href="features" onClick={() => scrollToSection('features')} > Features </NavLink>
 
 
       <NavLink href="/#" tw="lg:ml-12!">
@@ -89,15 +96,15 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   const { showNavLinks, animation, toggleNavbar } = useAnimatedNavToggler();
   const collapseBreakpointCss = collapseBreakPointCssMap[collapseBreakpointClass];
  
-  // const scrollToSection = (id) => {
-  //   const element = document.getElementById(id);
-  //   if (element) {
-  //     window.scrollTo({
-  //       top: element.offsetTop,
-  //       behavior: 'smooth',
-  //     });
-  //   }
-  // };
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   const defaultLogoLink = (
     <LogoLink href="/">

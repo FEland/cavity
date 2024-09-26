@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from 'react';
 import styled from "styled-components";
 import tw from "twin.macro";
 //eslint-disable-next-line
 import { css } from "styled-components/macro";
+import { ReactComponent as LocationIcon } from "feather-icons/dist/icons/map-pin.svg";
 
-import Header from "../headers/light.js";
+
+import Header from "../headers/topOfPage.js";
+// import Header from "../headers/light.js";
+
 
 import { ReactComponent as SvgDecoratorBlob1 } from "../../images/svg-decorator-blob-1.svg";
-import DesignIllustration from "../../images/design-illustration-2.svg";
+// import DesignIllustration from "../../images/design-illustration-2.svg";
 import CustomersLogoStripImage from "../../images/customers-logo-strip.png";
 
 const Container = tw.div`relative`;
@@ -45,7 +49,27 @@ const CustomersLogoStrip = styled.div`
   }
 `;
 
+
+
+
+
 export default ({ roundedHeaderButton }) => {
+  const [userLocation, setUserLocation] = useState();
+const fetchUserLocation = async () => {
+  try {
+    const response = await fetch(`https://api.geoapify.com/v1/ipinfo?&apiKey=${process.env.REACT_APP_geoapifyKey }`)
+      // const response = await fetch('https://api.geoapify.com/v1/ipinfo?&apiKey=6010e42b3c0d41b9a34dd332bd1e6d1a')
+      .then(response => response.json());
+      console.log(response);
+      setUserLocation(response.city.name)
+      // userLocationData = response;
+  }
+      // setImgSrc(response.url);
+      // }
+  catch (error) {
+      console.error('No location info:', error);
+      }
+};
   return (
     <>
       <Header roundedHeaderButton={roundedHeaderButton} />
@@ -53,16 +77,25 @@ export default ({ roundedHeaderButton }) => {
         <TwoColumn>
           <LeftColumn>
             <Heading>
-              Beautiful React Templates <span tw="text-primary-500">for you.</span>
+              Find The Best Dentists <span tw="text-primary-500">anywhere you go.</span>
             </Heading>
             <Paragraph>
-              Our templates are easy to setup, understand and customize. Fully modular components with a variety of
-              pages and components.
+            Stop stressing. Tooth hurts? We can help. Finding a Dentist has never been so easy.
             </Paragraph>
-            <Actions>
+
+            {/* <Actions>
               <input type="text" placeholder="Your E-mail Address" />
-              <button>Get Started</button>
-            </Actions>
+              <button onClick={() => fetchUserLocation()}>Get Started</button>
+            </Actions> */}
+            {/* <TwoColumn> */}
+            <Actions>
+
+            <button onClick={() => fetchUserLocation()} >
+              {userLocation ? userLocation : 'Find Me '}  < LocationIcon/>
+            </button>            
+              </Actions>
+
+            {/* </TwoColumn> */}
             <CustomersLogoStrip>
               <p>Our TRUSTED Customers</p>
               <img src={CustomersLogoStripImage} alt="Our Customers" />
@@ -70,8 +103,9 @@ export default ({ roundedHeaderButton }) => {
           </LeftColumn>
           <RightColumn>
             <IllustrationContainer>
-              <img tw="min-w-0 w-full max-w-lg xl:max-w-3xl" src={DesignIllustration} alt="Design Illustration" />
+              <img tw="min-w-0 w-full max-w-lg xl:max-w-3xl" src={"https://www.cityorthopeds.com/wp-content/uploads/2015/05/Young-girl-sitting-on-dental-chair-getting-her-teeth-checked-by-a-dentist.jpg"} alt="Design Illustration" />
             </IllustrationContainer>
+            
           </RightColumn>
         </TwoColumn>
         <DecoratorBlob1 />

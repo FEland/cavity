@@ -41,7 +41,7 @@ export default ({
   subheading = "",
   heading = "Questions",
   description = "Here are some frequently asked questions by patients like you. Should you have any other questions, feel free to reach out via the contact form below.",
-  imageSrc = "https://images.unsplash.com/photo-1579427421635-a0015b804b2e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1024&q=80",
+  imageSrc = "https://images.jpost.com/image/upload/q_auto/c_fill,g_faces:center,h_537,w_822/589159",
   imageContain = false,
   imageShadow = true,
   faqs = null
@@ -83,6 +83,7 @@ export default ({
   };
 
   return (
+    <div id="FAQ">
     <Container>
       <Content>
         <TwoColumn>
@@ -128,5 +129,6 @@ export default ({
         </TwoColumn>
       </Content>
     </Container>
+    </div>
   );
 };

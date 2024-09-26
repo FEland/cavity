@@ -46,15 +46,32 @@ scroll-behavior: smooth;
     ${tw`mt-4 sm:mt-0 sm:ml-4 bg-gray-300 text-gray-700 hover:bg-gray-400 hover:text-gray-800`}
   }
 `;
+const scrollToSection = (id) => {
+  const element = document.getElementById(id);
+  if (element) {
+    window.scrollTo({
+      top: element.offsetTop,
+      behavior: 'smooth',
+    });
+  }
+};
 
 export default ({
   navLinks = [
     <NavLinks key={1}>
-      <NavLink href="#">About</NavLink>
+      {/* <NavLink href="#">About</NavLink>
       <NavLink href="Search">Search</NavLink>
       <NavLink href="Pricing">Pricing</NavLink>
       <NavLink href="Procedures">Procedures</NavLink>
-      <NavLink href="Login">Login</NavLink>
+      <NavLink href="Login">Login</NavLink> */}
+
+      <NavLink href="#" onHover={() => scrollToSection('home')}> Home </NavLink>
+      <NavLink href="FAQ" onHover={() => scrollToSection('FAQ')} > FAQ </NavLink>
+      <NavLink href="MainFeature" onHover={() => scrollToSection('MainFeature')} > Main Feature </NavLink>
+      <NavLink href="footer" onHover={() => scrollToSection('footer')} > Footer </NavLink>
+      <NavLink href="search" onHover={() => scrollToSection('search')} > Search </NavLink>
+      <NavLink href="features" onHover={() => scrollToSection('features')} > Features </NavLink>
+
 
     </NavLinks>
   ],

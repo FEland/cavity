@@ -7,11 +7,11 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 import { SectionHeading } from "components/misc/Headings.js";
 import { PrimaryLink as PrimaryLinkBase } from "components/misc/Links.js";
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
-import { ReactComponent as LocationIcon } from "feather-icons/dist/icons/map-pin.svg";
-import { ReactComponent as TimeIcon } from "feather-icons/dist/icons/clock.svg";
-import { ReactComponent as TrendingIcon } from "feather-icons/dist/icons/trending-up.svg";
-// import { ReactComponent as ArrowLeftIcon } from "images/arrow-left-icon.svg";
-import { ReactComponent as ArrowRightIcon } from "images/arrow-right-icon.svg";
+// import { ReactComponent as LocationIcon } from "feather-icons/dist/icons/map-pin.svg";
+// import { ReactComponent as TimeIcon } from "feather-icons/dist/icons/clock.svg";
+// import { ReactComponent as TrendingIcon } from "feather-icons/dist/icons/trending-up.svg";
+// // import { ReactComponent as ArrowLeftIcon } from "images/arrow-left-icon.svg";
+// import { ReactComponent as ArrowRightIcon } from "images/arrow-right-icon.svg";
 // import DentistTypeGrid from "demos/DentistTypeGrid";
 
 const Container = tw.div`relative`;

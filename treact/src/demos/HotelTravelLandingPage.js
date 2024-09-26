@@ -18,19 +18,44 @@ import DenGrid from 'components/cards/DenGrid.js'
 
 export default () => (
   <AnimationRevealPage>
-    <Hero />
+   
+   <section >
+   <Hero />
+    </section> 
+
+
+    <section id="Login">
     <Features />
+    </section> 
+
+    <section id="Search">
     <DenGrid />
+    </section>
+
+    <section id="Main">
+    <MainFeature />
+    </section>
+
+    <section id="Procedures">
+    <MainFeature />
+    </section>
+
+
+    <section id="FAQ">
+    <FAQ />
+    </section>
+
+    <section id="Footer">
+    <SubscribeNewsLetterForm />
+    <Footer /> 
+    </section>
 
     {/* <TrendingCard />  */}
     {/* <MapCards />
     {/* <SliderCard /> */}
-     <MainFeature />
      {/* <ProcedureGrid /> */}
     {/* <Blog /> */}
     {/* <Testimonial textOnLeft={true}/> */}
-    <FAQ />
-    <SubscribeNewsLetterForm />
-    <Footer /> 
+
   </AnimationRevealPage>
 );
