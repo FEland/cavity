@@ -91,7 +91,7 @@ export default ({
    *  4) url - the url that the card should goto on click
    */
   return (
-    <div id="Stats">
+    <div id="stats">
     <Container>
       {/* <Content> */}
       <ContentWithPaddingXl>

@@ -83,7 +83,7 @@ export default ({
   };
 
   return (
-    <div id="FAQ">
+    <div id="faq">
     <Container>
       <Content>
         <TwoColumn>
