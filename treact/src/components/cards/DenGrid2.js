@@ -26,6 +26,7 @@ import { ReactComponent as ChevronLeftIcon } from "feather-icons/dist/icons/chev
 import { ReactComponent as ChevronRightIcon } from "feather-icons/dist/icons/chevron-right.svg";
 import 'leaflet/dist/leaflet.css';
 import customMarkerImage from 'images/tooth.png'; // Update with your image path
+// import ThreeColumnWithProfileImage from 'components/testimonials/ThreeColumnWithProfileImage.js';
 // import Autocomplete from './Autocomplete.js';
 
 
@@ -322,6 +323,7 @@ const fetchCoordinates = async (dentist) => {
         console.log("escape key pressed");
         closePopup();
         resetSearch('');
+        setPressedIndex(null);
         setHoveredIndex(null);
         setSuggestions([]);
 
@@ -380,8 +382,42 @@ const fetchCoordinates = async (dentist) => {
     setPage(0);
     // console.log("reseat ");
     // console.log(value);
+    setPressedIndex(null);
     setSearch(value);
+    // resetFilterDentist(value);
   };
+
+  const [filDents, setDents] = useState([]);
+
+//   const filteredDentists = search
+//   ? dentists.filter(dentist =>
+//       dentist[searchField].toLowerCase().includes(search.toLowerCase())
+//     )
+//   : dentists;
+
+//   const resetFilterDentist = (search) => {
+//     if (search){
+//         console.log(`search value is "${search.toLowerCase().trim()}"`);
+       
+//         // const searchField = 'name'; // Make sure this matches your data structure
+//         // const search = 'eisk';
+
+//         const temp = dentists.filter(dentist => {
+//             const fieldValue = dentist[searchField]?.toLowerCase().trim(); // Get the value
+//             // console.log(`dentist[searchfield] is: "${fieldValue}"`); // Log the value being checked
+
+//             return fieldValue.includes(search.toLowerCase().trim()); // Check for match
+//         });
+//         // console.log(`temp after "${length(dentists)}"`);
+
+//         setDents(temp);
+//     }
+//     else{
+//         console.log("FAILED HERE");
+//         setDents(dentists);
+//     }
+//   };
+
 
   const resetPageSize = (value) => {
     setPage(0);
@@ -395,6 +431,7 @@ const fetchCoordinates = async (dentist) => {
     setPage(0);
     setSearch('');
     setSuggestions([]);
+    setDents(dentists);
 
   };
 
@@ -402,11 +439,11 @@ const fetchCoordinates = async (dentist) => {
 //     dentist[searchField].toLowerCase().includes(search.toLowerCase())
 //   );
 
-const filteredDentists = search
-  ? dentists.filter(dentist =>
-      dentist[searchField].toLowerCase().includes(search.toLowerCase())
-    )
-  : dentists;
+// const filteredDentists = search
+//   ? dentists.filter(dentist =>
+//       dentist[searchField].toLowerCase().includes(search.toLowerCase())
+//     )
+//   : dentists;
 
   // const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);;
@@ -418,12 +455,14 @@ const filteredDentists = search
 
     setPressedIndex(index);
   
-    if (searchField === "Dentist_Type"){
-        resetSearch(value.name);
-    }
-    else {
-        resetSearch(value[searchField]);
-    }
+    // if (searchField === "Dentist_Type"){
+    //     resetSearch(value.name);
+    // }
+    // else {
+    //     resetSearch(value[searchField]);
+    // }
+    resetSearch(value[searchField]);
+
     setSuggestions([]);
 
   };
@@ -442,44 +481,35 @@ const filteredDentists = search
 
   useEffect(() => {
     if (search.length > 0) {
-        if (searchField === "Dentist_Type"){
+        
           const fetchSuggestions = async () => {
-            const { data, error } = await supabase
-              .from('dentist_types')
-              .select('name')
-              .ilike('name', `%${search}%`)
-              .range(0,4);
 
-            if (!error) {
-              setSuggestions(data);
-            }
-          };
-          fetchSuggestions();
-        } 
-        else {
-          const fetchSuggestions = async () => {
             const { data, error } = await supabase
               .from('Dentists1')
-              .select(`${searchField}`)
+              .select('*')
               .ilike(`${searchField}`, `%${search}%`)
-              .limit(8);
+            //   .limit(8);
             //   .range(0,4);
 
             if (data) {
                 
                 console.log(data);
+                setDents(data);
+                
                 // Get distinct values
                 const distinctData = Array.from(new Set(data.map(item => item[searchField])))
-                  .map(value => ({ [searchField]: value }));
+                  .map(value => ({ [searchField]: value })).slice(0, 4);
         
                 setSuggestions(distinctData); // Set suggestions
-                // console.log("i did");
                 // console.log(distinctData);
+                // setDents(distinctData);
 
               } else if (error) {
                 console.error('Error fetching data:', error);
               }
-              
+            };
+            fetchSuggestions();
+        } 
             // if (!error) {
               
               
@@ -496,14 +526,78 @@ const filteredDentists = search
             // else {
             //   console.log("failed");
             // }
-          };
         //   console.log("here");
         //   console.log(suggestions);
-          fetchSuggestions();
-        } 
+
         // fetchSuggestions();
-      }
   }, [search, searchField]);
+
+
+//   useEffect(() => {
+//     if (search.length > 0) {
+//         if (searchField === "Dentist_Type"){
+//           const fetchSuggestions = async () => {
+//             const { data, error } = await supabase
+//               .from('dentist_types')
+//               .select('name')
+//               .ilike('name', `%${search}%`)
+//               .range(0,4);
+
+//             if (!error) {
+//               setSuggestions(data);
+//             }
+//           };
+//           fetchSuggestions();
+//         } 
+//         else {
+//           const fetchSuggestions = async () => {
+
+//             const { data, error } = await supabase
+//               .from('Dentists1')
+//               .select(`${searchField}`)
+//               .ilike(`${searchField}`, `%${search}%`)
+//             //   .limit(8);
+//             //   .range(0,4);
+
+//             if (data) {
+                
+
+//                 // Get distinct values
+//                 const distinctData = Array.from(new Set(data.map(item => item[searchField])))
+//                   .map(value => ({ [searchField]: value }));
+        
+//                 setSuggestions(distinctData); // Set suggestions
+//                 // console.log(distinctData);
+//                 // setDents(distinctData);
+
+//               } else if (error) {
+//                 console.error('Error fetching data:', error);
+//               }
+              
+//             // if (!error) {
+              
+              
+//             // //     console.log(data);
+//             // //     const uniqueResults = Array.from(new Set(data.map(item => item.searchField)))
+//             // //     .map(name => {
+//             // //       return data.find(item => item.searchField === name);
+//             // //     });
+//             // //     console.log(uniqueResults);
+
+//             // //   setSuggestions(uniqueResults);
+//             // setSuggestions(data);
+//             // }
+//             // else {
+//             //   console.log("failed");
+//             // }
+//           };
+//         //   console.log("here");
+//         //   console.log(suggestions);
+//           fetchSuggestions();
+//         } 
+//         // fetchSuggestions();
+//       }
+//   }, [search, searchField]);
 
 
   const drawMap = () => (
@@ -595,7 +689,7 @@ const filteredDentists = search
           <Controls>
             <PrevButton onClick={() => setPage(page > 1 ? page - 1 : 0)}> <ChevronLeftIcon/></PrevButton>
             {/* <span> Page {page}</span> */}
-            {startIndex + pageSize > filteredDentists.length ? <NoNextButton> <ChevronRightIcon/> </NoNextButton> :
+            {startIndex + pageSize > filDents.length ? <NoNextButton> <ChevronRightIcon/> </NoNextButton> :
             <NextButton onClick={() => setPage(page + 1)}> <ChevronRightIcon/></NextButton>
                 }
             <select onChange={(e) => resetPageSize(Number(e.target.value))} value={pageSize} >
@@ -646,9 +740,11 @@ const filteredDentists = search
 
 </SearchField>
 
-        {suggestions.length > 1 && (
+        {(suggestions.length > 0 && suggestions[0][searchField]!==search) && (
                 <SuggestionsList>
 
+
+            {/* item.name if it's from DentistType table, and item[searchfield] from dentist1 table */}
              {suggestions.map((item, index) => (
               <li key={index}
                   // onMouseEnter={() => suggestSearchHover([item, index])}
@@ -657,7 +753,7 @@ const filteredDentists = search
                   onMouseLeave={() => setHoveredIndex(null)}
                   onClick={(e) => setChosenItem([index, item])}
 
-              >{item.name || item.Town_City || item.Phone_Number || item.Name}
+              >{item[searchField]}
               
               </li>
             ))}
@@ -692,9 +788,9 @@ const filteredDentists = search
         </StyledModal>
       </Container>
 
-     {filteredDentists.length > 0 ? (
+     {filDents.length > 0 ? (
       <GridContainer>
-        {filteredDentists.slice(startIndex, endIndex).map((dentist, index) => (
+        {filDents.slice(startIndex, endIndex).map((dentist, index) => (
           <Card key={index} onClick={() => openPopup(dentist)}>
             <Title>{dentist.Name}</Title>
             <HighlightedTextInverse>{dentist.Dentist_Type}</HighlightedTextInverse>
