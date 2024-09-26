@@ -23,6 +23,8 @@ import Hero from "components/hero/TwoColumnWithInput";
 // import SubscribeNewsLetterForm from "components/forms/SimpleSubscribeNewsletter.js";
 // import Footer from "components/footers/MiniCenteredFooter.js";
 // import DenGrid from 'components/cards/DenGrid.js'
+import DenGrid2 from 'components/cards/DenGrid2.js'
+
 // import HotelTravelLandingPage from 'demos/HotelTravelLandingPage';
 
 const Features = React.lazy(() => import(/* webpackPrefetch: true */ "components/features/TwoColSingleFeatureWithStats.js"));
@@ -30,7 +32,7 @@ const MainFeature = React.lazy(() => import(/* webpackPrefetch: true */ "compone
 const FAQ = React.lazy(() => import(/* webpackPrefetch: true */ "components/faqs/SimpleWithSideImage.js"));
 const SubscribeNewsLetterForm = React.lazy(() => import(/* webpackPrefetch: true */ "components/forms/SimpleSubscribeNewsletter.js"));
 const Footer = React.lazy(() => import(/* webpackPrefetch: true */ "components/footers/MiniCenteredFooter.js"));
-const DenGrid = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/DenGrid.js'));
+// const DenGrid = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/DenGrid.js'));
 // const HotelTravelLandingPage = React.lazy(() => import(/* webpackPrefetch: true */ 'demos/HotelTravelLandingPage'));
 
 // const Home = React.lazy(() => import(/* webpackPrefetch: true */ './Home'));
@@ -87,11 +89,9 @@ const App = () => {
 
         {/* <main className="pt-16"> */}
         {/* <TopOfPage/> */}
+
           <Hero />
-          <DenGrid />
-
-          {/* <Hero3 /> */}
-
+          <DenGrid2/>
             <Features/>
             <MainFeature />
             <FAQ />

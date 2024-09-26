@@ -7,7 +7,7 @@ import { SectionDescription } from "components/misc/Typography.js";
 // import {Container as ContainerBase } from "components/misc/Layouts.js"
 
 import { Container as ContainerBase, ContentWithPaddingXl } from "components/misc/Layouts.js";
-import { ReactComponent as ArrowRightIcon } from "images/arrow-right-icon.svg";
+// import { ReactComponent as ArrowRightIcon } from "images/arrow-right-icon.svg";
 import SupportIconImage from "images/support-icon.svg";
 import ShieldIconImage from "images/shield-icon.svg";
 import ShopIcon from "images/simple-icon.svg";
@@ -72,7 +72,7 @@ export default ({
     {
       imageSrc: ShopIcon,
       title: "Book with Ease",
-      description: "No more headaches. What you see is what you get",
+      description: "No more headaches. Book your appointment in a flash",
       url: "https://reddit.com"
     }
   ],
@@ -91,7 +91,7 @@ export default ({
    *  4) url - the url that the card should goto on click
    */
   return (
-    <div id="MainFeature">
+    <div id="Stats">
     <Container>
       {/* <Content> */}
       <ContentWithPaddingXl>
@@ -109,12 +109,12 @@ export default ({
                 </span>
                 <span className="title">{card.title}</span>
                 <p className="description">{card.description}</p>
-                {linkText && (
+                {/* {linkText && (
                   <span className="link">
                     <span>{linkText}</span>
                     <ArrowRightIcon className="icon" />
                   </span>
-                )}
+                )} */}
               </Card>
             </Column>
           ))}

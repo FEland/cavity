@@ -3,9 +3,6 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = process.env.REACT_APP_supabaseUrl;
 // const supabaseUrl = 'https://pmdubdmaqrdawtogjxon.supabase.co';
 const supabaseKey = process.env.REACT_APP_supabaseKey;
-console.log(supabaseKey);
-console.log(String(supabaseKey));
-
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 

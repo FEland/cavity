@@ -65,12 +65,12 @@ export default ({
       <NavLink href="Procedures">Procedures</NavLink>
       <NavLink href="Login">Login</NavLink> */}
 
-      <NavLink href="#" onHover={() => scrollToSection('home')}> Home </NavLink>
-      <NavLink href="FAQ" onHover={() => scrollToSection('FAQ')} > FAQ </NavLink>
-      <NavLink href="MainFeature" onHover={() => scrollToSection('MainFeature')} > Main Feature </NavLink>
-      <NavLink href="footer" onHover={() => scrollToSection('footer')} > Footer </NavLink>
-      <NavLink href="search" onHover={() => scrollToSection('search')} > Search </NavLink>
-      <NavLink href="features" onHover={() => scrollToSection('features')} > Features </NavLink>
+      <NavLink href="#" onClick={() => scrollToSection('home')}> Home </NavLink>
+      <NavLink href="FAQ" onClick={() => scrollToSection('FAQ')} > FAQ </NavLink>
+      <NavLink href="MainFeature" onClick={() => scrollToSection('MainFeature')} > Main Feature </NavLink>
+      <NavLink href="footer" onClick={() => scrollToSection('footer')} > Footer </NavLink>
+      <NavLink href="search" onClick={() => scrollToSection('search')} > Search </NavLink>
+      <NavLink href="features" onClick={() => scrollToSection('features')} > Features </NavLink>
 
 
     </NavLinks>

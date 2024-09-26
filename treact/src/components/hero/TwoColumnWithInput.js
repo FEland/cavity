@@ -77,7 +77,7 @@ const fetchUserLocation = async () => {
         <TwoColumn>
           <LeftColumn>
             <Heading>
-              Find The Best Dentists <span tw="text-primary-500">anywhere you go.</span>
+              Find The Best Dentists <span tw="text-primary-500">anywhere in the U.K.</span>
             </Heading>
             <Paragraph>
             Stop stressing. Tooth hurts? We can help. Finding a Dentist has never been so easy.

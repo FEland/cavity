@@ -116,7 +116,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
         <header className="fixed w-full bg-white shadow">
           <nav className="flex justify-around p-20">
 
-            <NavLinks key={8}>
+            <NavLinks key={3}>
               <NavLink href="/#FAQ" >
               <button onClick={() => scrollToSection('FAQ')} >FAQ</button>
               </NavLink>
@@ -124,8 +124,8 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
               <button onClick={() => scrollToSection('search')} >Search</button>
               </NavLink>
               {/* <NavLink href="/#">Blog</NavLink> */}
-              <NavLink href="/#Main">
-                <button onClick={() => scrollToSection('MainFeature')} >Main Feature</button>
+              <NavLink href="/#Stats">
+                <button onClick={() => scrollToSection('stats')} >Stats</button>
               </NavLink>
               {/* <NavLinks href="/#Home">
                 <button onClick={() => scrollToSection('home')} >Home</button>
@@ -138,6 +138,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
               <NavLinks href="/#Features">
                 <button onClick={() => scrollToSection('features')} >Features</button>
               </NavLinks>
+              
               <NavLink href="/#Footer">
               <button onClick={() => scrollToSection('footer')} >Footer</button>
               </NavLink>
@@ -187,8 +188,8 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
               <button onClick={() => scrollToSection('search')} >Search</button>
               </NavLink>
               {/* <NavLink href="/#">Blog</NavLink> */}
-              <NavLink href="/#Main">
-                <button onClick={() => scrollToSection('MainFeature')} >Main Feature</button>
+              <NavLink href="/#Stats">
+                <button onClick={() => scrollToSection('stats')} >Stats</button>
               </NavLink>
               {/* <NavLinks href="/#Home">
                 <button onClick={() => scrollToSection('home')} >Home</button>

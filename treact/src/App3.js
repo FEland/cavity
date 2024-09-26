@@ -108,7 +108,7 @@ import DenGrid from 'components/cards/DenGrid.js'
 import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
 import { HashRouter as  Router, Routes, Route } from "react-router-dom";
 import Hero from "components/hero/FullWidthWithImage.js";
-import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
+// import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 
 
 // import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";

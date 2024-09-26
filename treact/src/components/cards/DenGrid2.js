@@ -65,7 +65,10 @@ const Card = styled.div`
 `;
 
 const SearchField = styled.div`
-  ${tw`relative w-3/5 max-w-lg p-4 bg-white border border-gray-300 rounded-full shadow-md`}
+  ${tw`relative w-full max-w-lg p-4 bg-white border border-gray-300 rounded-full shadow-md`}
+  transition: background-color 0.3s;
+  width: 75vw; /* Set the width to 75% of the viewport width */
+  max-width: none; /* Remove max-width to ensure it takes full 75vw */
   transition: background-color 0.3s;
 
   &:hover {
@@ -83,22 +86,13 @@ const SearchField = styled.div`
   }
 
   @media (max-width: 640px) {
+    width: 90vw; /* Adjust for smaller screens */
+
     input {
       ${tw`py-2 pl-3 pr-10`}
     }
   }
 `;
-
-const Actions = styled.div`
-  ${tw`relative max-w-md text-center mx-auto lg:mx-0`}
-  input {
-    ${tw`sm:pr-48 pl-8 py-4 sm:py-5 rounded-full border-2 w-full font-medium focus:outline-none transition duration-300  focus:border-primary-500 hover:border-gray-500`}
-  }
-  button {
-    ${tw`w-full sm:absolute right-0 top-0 bottom-0 bg-primary-500 text-gray-100 font-bold mr-2 my-4 sm:my-2 rounded-full py-4 flex items-center justify-center sm:w-40 sm:leading-none focus:outline-none hover:bg-primary-900 transition duration-300`}
-  }
-`;
-
 
 const SuggestionsList = styled.ul`
   ${tw`absolute w-full bg-white border border-gray-300 rounded-lg mt-1 max-h-screen overflow-y-auto shadow-lg z-10`}
@@ -140,8 +134,13 @@ const ControlButton = styled(PrimaryButtonBase)`
     ${tw`w-6 h-6`}
   }
 `;
+const PrimaryButton = tw.button`font-bold px-8 lg:px-10 py-3 rounded bg-primary-500 text-gray-100 hocus:bg-primary-700 focus:shadow-outline focus:outline-none transition duration-300`;
+
 const PrevButton = tw(ControlButton)``;
 const NextButton = tw(ControlButton)``;
+const NoNextButton = styled(ControlButton)`
+  ${tw`bg-gray-300 text-gray-600 hocus:bg-gray-300`}
+`;
 
 
 // const Subheading = tw.span`tracking-wider text-sm font-medium`;
@@ -152,7 +151,6 @@ const Description = tw.span`flex inline-block mt-8`;
 
 
 // const Actions = tw.div`flex flex-col items-center sm:flex-row justify-center lg:justify-start mt-8`;
-const PrimaryButton = tw.button`font-bold px-8 lg:px-10 py-3 rounded bg-primary-500 text-gray-100 hocus:bg-primary-700 focus:shadow-outline focus:outline-none transition duration-300`;
 
 
 const HeadingWithControl = tw.div`flex flex-col items-center sm:items-stretch sm:flex-row justify-between`;
@@ -233,9 +231,9 @@ export default () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedDentist, setSelectedDentist] = useState(null);
   const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(30);
+  const [pageSize, setPageSize] = useState(20);
 
-  // const [imageSrc, setImgSrc] = useState("https://loremflickr.com/200/200?random=");
+//   const [imageSrc, setImgSrc] = useState("https://loremflickr.com/200/200?random=");
 
   const startIndex = page * pageSize;
   const endIndex = startIndex + pageSize;
@@ -285,16 +283,16 @@ const fetchCoordinates = async (dentist) => {
     setSelectedDentist(dentist);
   };
 
-const fetchProfileImage = async () => {
-    try {
-        const response = await fetch(`https://loremflickr.com/100/100?random=`);
-        console.log(response);
-        // setImgSrc(response.url);
-        }
-    catch (error) {
-        console.error('No profile image:', error);
-        }
-  };
+// const fetchProfileImage = async () => {
+//     try {
+//         const response = await fetch(`https://loremflickr.com/100/100?random=`);
+//         console.log(response);
+//         // setImgSrc(response.url);
+//         }
+//     catch (error) {
+//         console.error('No profile image:', error);
+//         }
+//   };
 
 
   const resetPosition = () => {
@@ -307,7 +305,7 @@ const fetchProfileImage = async () => {
     toggleModal();
     closePopup();
     fetchCoordinates(dentist);
-    fetchProfileImage();
+    // fetchProfileImage();
     setIsPopupOpen(true);
   };
 
@@ -321,12 +319,17 @@ const fetchProfileImage = async () => {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
+        console.log("escape key pressed");
         closePopup();
+        resetSearch('');
+        setHoveredIndex(null);
+        setSuggestions([]);
+
         // resetPosition();
       }
     };
-
-    if (isPopupOpen) {
+// escape key registerd for when card popup open or  suggestion popup open
+    if (isPopupOpen || suggestions.length > 1) {
       window.addEventListener('keydown', handleKeyDown);
     } else {
       window.removeEventListener('keydown', handleKeyDown);
@@ -375,6 +378,8 @@ const fetchProfileImage = async () => {
 
   const resetSearch = (value) => {
     setPage(0);
+    // console.log("reseat ");
+    // console.log(value);
     setSearch(value);
   };
 
@@ -385,10 +390,23 @@ const fetchProfileImage = async () => {
 
   const [searchField, setSearchField] = useState('Dentist_Type');
 
-  const filteredDentists = dentists.filter(dentist =>
-    dentist[searchField].includes(search.toLowerCase())
-  );
+  const resetSearchField = (value) => {
+    setSearchField(value);
+    setPage(0);
+    setSearch('');
+    setSuggestions([]);
 
+  };
+
+//   const filteredDentists = dentists.filter(dentist =>
+//     dentist[searchField].toLowerCase().includes(search.toLowerCase())
+//   );
+
+const filteredDentists = search
+  ? dentists.filter(dentist =>
+      dentist[searchField].toLowerCase().includes(search.toLowerCase())
+    )
+  : dentists;
 
   // const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);;
@@ -397,8 +415,17 @@ const fetchProfileImage = async () => {
   const [pressedIndex, setPressedIndex] = useState(null);
 
   const setChosenItem = ([index, value]) => {
+
     setPressedIndex(index);
-    resetSearch(value.name);
+  
+    if (searchField === "Dentist_Type"){
+        resetSearch(value.name);
+    }
+    else {
+        resetSearch(value[searchField]);
+    }
+    setSuggestions([]);
+
   };
 
 
@@ -435,31 +462,54 @@ const fetchProfileImage = async () => {
               .from('Dentists1')
               .select(`${searchField}`)
               .ilike(`${searchField}`, `%${search}%`)
-              .range(0,4);
-            if (!error) {
-              setSuggestions(data);
-              console.log("set suggestions")
-            }
-            else {
-              console.log("failed");
-            }
+              .limit(8);
+            //   .range(0,4);
+
+            if (data) {
+                
+                console.log(data);
+                // Get distinct values
+                const distinctData = Array.from(new Set(data.map(item => item[searchField])))
+                  .map(value => ({ [searchField]: value }));
+        
+                setSuggestions(distinctData); // Set suggestions
+                // console.log("i did");
+                // console.log(distinctData);
+
+              } else if (error) {
+                console.error('Error fetching data:', error);
+              }
+              
+            // if (!error) {
+              
+              
+            // //     console.log(data);
+            // //     const uniqueResults = Array.from(new Set(data.map(item => item.searchField)))
+            // //     .map(name => {
+            // //       return data.find(item => item.searchField === name);
+            // //     });
+            // //     console.log(uniqueResults);
+
+            // //   setSuggestions(uniqueResults);
+            // setSuggestions(data);
+            // }
+            // else {
+            //   console.log("failed");
+            // }
           };
-          // console.log("here");
-          // console.log(suggestions);
+        //   console.log("here");
+        //   console.log(suggestions);
           fetchSuggestions();
         } 
         // fetchSuggestions();
       }
-  }, [search, searchField, suggestions]);
+  }, [search, searchField]);
 
-  // const baseUrl =`https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${process.env.REACT_APP_thunderForestKey }`;
 
   const drawMap = () => (
     // <PopupContainer>
     // <PopupContent>
     <div>
-
-
       {/* <CloseButton onClick={closePopup}>×</CloseButton> */}
       {/* <button onClick={closePopup}>Close</button> */}
 
@@ -479,7 +529,6 @@ const fetchProfileImage = async () => {
                   </RatingsInfo>
                 </TitleReviewContainer>
 
-             
                 <SecondaryInfoContainer>
                   <IconWithText>
                     <IconContainer>
@@ -503,7 +552,6 @@ const fetchProfileImage = async () => {
                     <PhoneIcon />
                     <PhoneNumber> {selectedDentist.Phone_Number}</PhoneNumber>
                   </PhoneNumbersInfo>
-   
                 <Description>{selectedDentist.Treatment}</Description>
               </TextInfo>
 
@@ -533,24 +581,31 @@ const fetchProfileImage = async () => {
 
 
   return (
-    <div id="search">
+    <div onClick={(e) => setSuggestions([])}>
+
 
 {/* <Autocomplete />*/}
 
 
         <HeadingWithControl>
           <Heading>Popular Dentists</Heading>
+
+          {/* {filteredDentists.length > pageSize? ( */}
+          
           <Controls>
             <PrevButton onClick={() => setPage(page > 1 ? page - 1 : 0)}> <ChevronLeftIcon/></PrevButton>
             {/* <span> Page {page}</span> */}
+            {startIndex + pageSize > filteredDentists.length ? <NoNextButton> <ChevronRightIcon/> </NoNextButton> :
             <NextButton onClick={() => setPage(page + 1)}> <ChevronRightIcon/></NextButton>
-
+                }
             <select onChange={(e) => resetPageSize(Number(e.target.value))} value={pageSize} >
                 <option value={20}>20</option>
                 <option value={50}>50</option>
                 <option value={100}>100</option>
             </select>
           </Controls>
+          {/* ) : <div> nothin here </div>
+          } */}
         </HeadingWithControl>
 
 
@@ -559,7 +614,9 @@ const fetchProfileImage = async () => {
         {/* <Heading> */}
         <div>
 
-  <SearchField>
+
+  <SearchField >
+  <Controls>
       <input
           type="text"
           placeholder={`Search by Dentist, Location, Speciality, Procedure...`}
@@ -570,14 +627,22 @@ const fetchProfileImage = async () => {
           
           // onFocus={() => setIsOpen(true)}
         />
-                <Actions>
-
         <div className="icon">
           <svg className="w-5 h-5 text-gray-500" fill="blue" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M12.9 14.32a8 8 0 111.414-1.414l4.243 4.243a1 1 0 01-1.414 1.414l-4.243-4.243zM8 14a6 6 0 100-12 6 6 0 000 12z" clipRule="evenodd" />
           </svg>
         </div>
-        </Actions>
+
+            <Controls>
+
+                <select onChange={(e) => resetSearchField(e.target.value)} value={searchField}>
+                <option value="Dentist_Type">Type of Dentist</option>
+                <option value="Name">Name</option>
+                <option value="Town_City">Address</option>
+                <option value="Phone_Number">Phone Number</option>
+                </select>
+            </Controls>
+        </Controls>
 
 </SearchField>
 
@@ -592,7 +657,8 @@ const fetchProfileImage = async () => {
                   onMouseLeave={() => setHoveredIndex(null)}
                   onClick={(e) => setChosenItem([index, item])}
 
-              >{item.Town_City}
+              >{item.name || item.Town_City || item.Phone_Number || item.Name}
+              
               </li>
             ))}
                   </SuggestionsList>
@@ -600,15 +666,7 @@ const fetchProfileImage = async () => {
         )}
         </div>
         {/* </Heading> */}
-        <Controls>
 
-      <select onChange={(e) => setSearchField(e.target.value)} value={searchField}>
-        <option value="Name">Name</option>
-        <option value="Town_City">Address</option>
-        <option value="Phone_Number">Phone Number</option>
-        <option value="Dentist_Type">Type of Dentist</option>
-      </select>
-      </Controls>
 
       {/* </HeadingWithControl> */}
 
@@ -679,5 +737,4 @@ const fetchProfileImage = async () => {
     </div>
   );
 };
-
 
