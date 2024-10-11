@@ -25,6 +25,9 @@ import Hero from "components/hero/TwoColumnWithInput";
 // import DenGrid from 'components/cards/DenGrid.js'
 // import DenGrid3 from 'components/cards/DenGrid3.js'
 
+// import AllOnMap7 from 'components/cards/AllOnMap7.js'
+// import DentistMap from 'components/cards/DentistMap.js'
+
 // import HotelTravelLandingPage from 'demos/HotelTravelLandingPage';
 
 const Features = React.lazy(() => import(/* webpackPrefetch: true */ "components/features/TwoColSingleFeatureWithStats.js"));
@@ -33,6 +36,12 @@ const FAQ = React.lazy(() => import(/* webpackPrefetch: true */ "components/faqs
 const SubscribeNewsLetterForm = React.lazy(() => import(/* webpackPrefetch: true */ "components/forms/SimpleSubscribeNewsletter.js"));
 const Footer = React.lazy(() => import(/* webpackPrefetch: true */ "components/footers/MiniCenteredFooter.js"));
 const DenGrid3 = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/DenGrid3.js'));
+const MapSearch = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/MapSearch.js'));
+
+const AllTogether = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/AllTogether.js'));
+
+// const AllOnMap7 = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/AllOnMap7.js'));
+
 // const HotelTravelLandingPage = React.lazy(() => import(/* webpackPrefetch: true */ 'demos/HotelTravelLandingPage'));
 
 // const Home = React.lazy(() => import(/* webpackPrefetch: true */ './Home'));
@@ -92,7 +101,11 @@ const App = () => {
 
 {/* <DenGrid4/> */}
           <Hero />
-          <DenGrid3/>
+          {/* <AllOnMap7 searchField="London" /> */}
+          {/* <DentistMap searchField="London"/> */}
+          {/* <DenGrid3/> */}
+          {/* <MapSearch/> */}
+          <AllTogether/>
             <Features/>
             <MainFeature />
             <FAQ />
