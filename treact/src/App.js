@@ -36,7 +36,7 @@ const FAQ = React.lazy(() => import(/* webpackPrefetch: true */ "components/faqs
 const SubscribeNewsLetterForm = React.lazy(() => import(/* webpackPrefetch: true */ "components/forms/SimpleSubscribeNewsletter.js"));
 const Footer = React.lazy(() => import(/* webpackPrefetch: true */ "components/footers/MiniCenteredFooter.js"));
 const DenGrid3 = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/DenGrid3.js'));
-const MapSearch = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/MapSearch.js'));
+// const MapSearch = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/MapSearch.js'));
 
 const AllTogether = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/AllTogether.js'));
 
