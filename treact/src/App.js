@@ -16,6 +16,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 // import Hero3 from "components/hero/FullWidthWithImage.js";
 import Hero from "components/hero/TwoColumnWithInput";
+import AllTogether2 from 'components/cards/AllTogether2';
+
 // import TopOfPage from 'components/headers/topOfPage';
 // import Features from "components/features/TwoColSingleFeatureWithStats.js";
 // import MainFeature from "components/features/ThreeColSimple.js"
@@ -38,7 +40,7 @@ const Footer = React.lazy(() => import(/* webpackPrefetch: true */ "components/f
 // const DenGrid3 = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/DenGrid3.js'));
 // const MapSearch = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/MapSearch.js'));
 
-const AllTogether = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/AllTogether.js'));
+// const AllTogether2 = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/AllTogether2.js'));
 
 // const AllOnMap7 = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/AllOnMap7.js'));
 
@@ -105,7 +107,7 @@ const App = () => {
           {/* <DentistMap searchField="London"/> */}
           {/* <DenGrid3/> */}
           {/* <MapSearch/> */}
-          <AllTogether/>
+          <AllTogether2/>
             <Features/>
             <MainFeature />
             <FAQ />

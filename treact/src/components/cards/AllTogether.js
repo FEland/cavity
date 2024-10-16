@@ -53,10 +53,10 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster';
 
 
-const GridContainer = styled.div`
-  ${tw`grid grid-cols-2 gap-4 p-4`}
+// const GridContainer = styled.div`
+//   ${tw`grid grid-cols-2 gap-4 p-4`}
 
-`;
+// `;
 
 // const Card = styled.div`
 //   ${tw`p-4 bg-gray-100 rounded-lg shadow-md cursor-pointer`}
@@ -117,17 +117,17 @@ const Card = styled.div`
 //   }
 // `;
 
-const Column = tw.div`w-full max-w-md mx-auto md:max-w-none md:mx-0`;
+// const Column = tw.div`w-full max-w-md mx-auto md:max-w-none md:mx-0`;
 
 // const ImageColumn = tw(Column)`md:w-6/12 lg:w-5/12 flex-shrink-0 h-100 md:h-auto`;
-const ImageColumn = tw(Column)`
-  w-full md:w-6/12 
-  flex-shrink-0 
-  h-auto
-`;
-const TextColumn = styled(Column)(props => [
-  tw`md:w-6/12 mt-8 md:mt-0`,
-]);
+// const ImageColumn = tw(Column)`
+//   w-full md:w-6/12 
+//   flex-shrink-0 
+//   h-auto
+// `;
+// const TextColumn = styled(Column)(props => [
+//   tw`md:w-6/12 mt-8 md:mt-0`,
+// ]);
 
 // const Image = styled.div(props => [
 //   `background-image: url("${props.imageSrc}");`,
@@ -145,13 +145,31 @@ const TextColumn = styled(Column)(props => [
 //   }
 // `;
 
-const TwoColumn = tw.div`flex flex-col lg:flex-row lg:items-center max-w-screen-xl mx-auto py-20 md:py-24`;
 
 // const TwoColumn = tw.div`flex flex-col md:flex-row justify-between max-w-screen-xl mx-auto py-20 md:py-24`;
 
 // const LeftColumn = tw.div`relative lg:w-5/12 text-center max-w-lg mx-auto lg:max-w-none lg:text-left`;
 // const RightColumn = tw.div`relative mt-12 lg:mt-0 flex-1 flex flex-col justify-center lg:self-end`;
 
+
+const TwoColumn = tw.div`
+  flex flex-col md:flex-row justify-between max-w-screen-xl mx-auto py-0 
+  w-full h-screen // Full height of the viewport
+`;
+
+const LeftColumn = tw.div`
+  relative lg:w-6/12 flex flex-col text-center max-w-lg lg:max-w-none lg:text-left
+  border-r border-gray-300 overflow-y-auto
+`;
+
+const RightColumn = tw.div`
+  relative lg:w-6/12 flex flex-col justify-center lg:self-end h-full
+`;
+
+const CardList = styled.div`
+  max-height: 100%; // Make sure the cards can take full height
+  overflow-y: auto; // Enable vertical scrolling
+`;
 // const SearchContainer = styled.div`
 //   ${tw`flex relative w-full p-4 bg-white border border-gray-300 rounded-full shadow-md`}
 //   width: 75vw; /* Set the width to 75% of the viewport width */
@@ -194,46 +212,87 @@ const TwoColumn = tw.div`flex flex-col lg:flex-row lg:items-center max-w-screen-
 //   }
 // `;
 
+// const SearchContainer = styled.div`
+//   ${tw`flex relative w-full p-4 bg-white border border-gray-300 rounded-full shadow-md`}
+//   width: 75vw; /* Set the width to 75% of the viewport width */
+//   max-width: none; /* Remove max-width to ensure it takes full 75vw */
+//   transition: background-color 0.3s;
+
+//   &:hover {
+//     background-color: #f7fafc; /* Change to your desired hover color */
+//   }
+
+//   .search-input {
+//     ${tw`w-2/4 py-3 pl-4 pr-2 text-gray-700 bg-transparent border-none focus:outline-none`}
+//     border-left: 2px solid #ccc; /* Add a border to separate the two inputs */
+//     marginLeft: '40%', // Moves it one-quarter of the way in from the left
+//     border-right: 2px solid #ccc; /* Add a border to separate the two inputs */
+//   }
+
+//   .location-container {
+//     ${tw`flex items-center w-1/4`} /* Ensure the container takes up 25% */
+//   }
+
+//   .location-icon {
+//     ${tw`mr-2 mt-3 ml-4`} /* Adjust the margin-top to center the icon */
+//     /* Adjust size if necessary */
+//   }
+
+//   .location-input {
+//     ${tw`flex-grow py-3 pl-2 pr-2 text-gray-700 bg-transparent border-none focus:outline-none`}
+//   }
+//     .icon {
+//         ${tw`absolute inset-y-0 right-0 flex items-center pr-3`}
+//       }
+    
+//   @media (max-width: 640px) {
+//     width: 90vw; /* Adjust for smaller screens */
+
+//     .search-input,
+//     .location-input {
+//       ${tw`py-2 pl-3 pr-2`}
+//     }
+//   }
+// `;
+
 const SearchContainer = styled.div`
-  ${tw`flex relative w-full p-4 bg-white border border-gray-300 rounded-full shadow-md`}
-  width: 75vw; /* Set the width to 75% of the viewport width */
-  max-width: none; /* Remove max-width to ensure it takes full 75vw */
+  ${tw`flex items-center justify-center w-full p-4 bg-white border border-gray-300 rounded-full shadow-md`}
+  margin: 0 20px; /* Adjust margins for rounded edges */
   transition: background-color 0.3s;
 
   &:hover {
     background-color: #f7fafc; /* Change to your desired hover color */
   }
 
-  .search-input {
-    ${tw`w-2/4 py-3 pl-4 pr-2 text-gray-700 bg-transparent border-none focus:outline-none`}
-    border-left: 2px solid #ccc; /* Add a border to separate the two inputs */
-    marginLeft: '40%', // Moves it one-quarter of the way in from the left
-    border-right: 2px solid #ccc; /* Add a border to separate the two inputs */
+  .toggle-container {
+    ${tw`flex items-center`}
   }
 
-  .location-container {
-    ${tw`flex items-center w-1/4`} /* Ensure the container takes up 25% */
+  .search-input {
+    ${tw`flex-grow py-3 px-4 text-gray-700 bg-transparent border-none focus:outline-none`}
+    border-left: 2px solid #ccc; /* Left vertical line */
+    border-right: 2px solid #ccc; /* Right vertical line */
   }
 
   .location-icon {
-    ${tw`mr-2 mt-3 ml-4`} /* Adjust the margin-top to center the icon */
-    /* Adjust size if necessary */
+    ${tw`mr-2`}
   }
 
-  .location-input {
-    ${tw`flex-grow py-3 pl-2 pr-2 text-gray-700 bg-transparent border-none focus:outline-none`}
+  .icon {
+    ${tw`flex items-center pr-3`}
   }
-    .icon {
-        ${tw`absolute inset-y-0 right-0 flex items-center pr-3`}
-      }
-    
+
+  .vertical-line {
+    ${tw`mx-2 h-8 border-l border-gray-300`} /* Vertical line styling */
+  }
+
+  .active-text {
+    color: purple; /* Highlight color */
+  }
+
   @media (max-width: 640px) {
+    margin: 0; /* Remove margins on small screens */
     width: 90vw; /* Adjust for smaller screens */
-
-    .search-input,
-    .location-input {
-      ${tw`py-2 pl-3 pr-2`}
-    }
   }
 `;
 
@@ -403,7 +462,7 @@ export default () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedDentist, setSelectedDentist] = useState(null);
   const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(20);
+  const [pageSize, setPageSize] = useState(10);
 
 //   const [imageSrc, setImgSrc] = useState("https://loremflickr.com/200/200?random=");
 
@@ -439,7 +498,7 @@ export default () => {
 }, [page, pageSize]);
 
 const fetchCoordinates = async (dentist) => {
-    // console.log(selectedDentist);
+    console.log(dentist);
     try {
         const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${dentist.Address_1},${dentist.Town_City}&format=json`);
         const data = await response.json();
@@ -474,20 +533,32 @@ const fetchCoordinates = async (dentist) => {
     setPosition([55.1830955,-1.5911608]);
   };
 
+
   const openPopup = (dentist) => {
-    // resetPosition();
-    // setSelectedDentist(dentist);
-    toggleModal();
-    closePopup();
-    fetchCoordinates(dentist);
-    // fetchProfileImage();
-    setIsPopupOpen(true);
+
+    setSelectedDentist(dentist);
+    console.log("hit openpop");
+
   };
+
+
+//   const openPopup = (dentist) => {
+//     // resetPosition();
+//     setSelectedDentist(dentist);
+//     // console.log("hit openpop");
+
+//     toggleModal();
+//     closePopup();
+//     fetchCoordinates(dentist);
+//     // fetchProfileImage();
+//     setIsPopupOpen(true);
+//   };
 
 
   const closePopup = () => {
     setIsPopupOpen(false);
     resetPosition();
+    console.log("closing popup / resetting dentist to null");
     setSelectedDentist(null);
   };
 
@@ -520,7 +591,7 @@ const fetchCoordinates = async (dentist) => {
 //     fetchUserLocation();
 //   }, []); // Empty array ensures this effect runs only once
 
-  const [trigger, retrigger] = useState(1);
+//   const [trigger, retrigger] = useState(1);
 
   const [search, setSearch] = useState('');
 
@@ -652,7 +723,7 @@ const fetchCoordinates = async (dentist) => {
     //     resetSearch(value[searchField]);
     // }
     resetSearch(value[searchField]);
-    retrigger(trigger+1);
+    // retrigger(trigger+1);
     panCoordinatesToSearch(value);
     // setDents(filDents[0])
     setSuggestions([]);
@@ -677,7 +748,7 @@ const fetchCoordinates = async (dentist) => {
           const fetchSuggestions = async () => {
                 // console.log('location for suggestions :', userLocation);
             const { data, error } = await supabase
-              .from('Dentists1')
+              .from('Dentists3')
               .select('*')
               .ilike(`${searchField}`, `%${search}%`);
             //   .ilike(`${searchField}`, `%${search}%`).eq('Town_City', 'London');
@@ -772,7 +843,6 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
-
 const createClusterIcon = (cluster) => {
     const count = cluster.getChildCount();
     const size = Math.min(40 + count * 5, 70); // Control size based on count
@@ -816,9 +886,12 @@ const createClusterIcon = (cluster) => {
 //   });
 // };
 
-const DentistMap = ({ searchField, retrigger }) => {
+const DentistMap = ({ searchField, selectedDentist }) => {
 //   const [cityFocus, setCityFocus] = useState(searchField);
   const [dentists, setDentists] = useState([]);
+//   const [chosenDentist, setChosenDentist] = useState('');
+//   const [selectedDentist, setSelectedDentist] = useState(null);
+
 //   const [cache, setCache] = useState({});
   
 //   const initialPosition = [51.5074, -0.3278];
@@ -877,6 +950,7 @@ const DentistMap = ({ searchField, retrigger }) => {
   };
 
   useEffect(() => {
+    console.log("initializing map and fetchDentist[]", selectedDentist, searchField);
     if (markersRef.current) {
       const map = markersRef.current.mapInstance;
       if (map) {
@@ -884,82 +958,131 @@ const DentistMap = ({ searchField, retrigger }) => {
         fetchDentists(bounds);
       }
     }
-  }, );
+  }, []);
 
   useEffect(() => {
     if (!dentists.length || !markersRef.current) return;
-
+    
+    console.log("resetting all pins for new Dentist list");
     markersRef.current.clearLayers(); 
-
+  
     const markers = L.markerClusterGroup({
       iconCreateFunction: createClusterIcon,
-    //   iconSize: L.point(40, 40, true),
       maxClusterRadius: 100,
       showCoverageOnHover: true,
     });
-
+  
+    // Add all dentists' markers
     dentists.forEach(dentist => {
       const lat = dentist.Latitude || dentist.fakelat;
       const lng = dentist.Longitude || dentist.fakelong;
-
+  
       if (lat !== undefined && lng !== undefined) {
-
         const popupContent = `
             <div>
                 <strong>${dentist.Address_1}</strong><br>
-               ${dentist.Name}<br>
-               ${dentist.Phone_Number ? `<a href="tel:${dentist.Phone_Number}">${dentist.Phone_Number}</a><br>`  : '' }
-                ${dentist.Website ? `<a href="tel:${dentist.Website}" target="_blank" rel="noopener noreferrer">${dentist.Website}</a>` : dentist.URL ? `<a href="${dentist.URL}" target="_blank" rel="noopener noreferrer">${dentist.URL}</a>` : ''}
+                ${dentist.Name}<br>
+                ${dentist.Phone_Number ? `<a href="tel:${dentist.Phone_Number}">${dentist.Phone_Number}</a><br>` : ''}
+                ${dentist.Website ? `<a href="${dentist.Website}" target="_blank" rel="noopener noreferrer">${dentist.Website}</a>` : dentist.URL ? `<a href="${dentist.URL}" target="_blank" rel="noopener noreferrer">${dentist.URL}</a>` : ''}
             </div>`;
-
+  
         const marker = L.marker([lat, lng])
-            .bindPopup(popupContent);
-            // .bindPopup(dentist.Address_1);
+            .bindPopup(popupContent)
+            .on('click', () => {
+                console.log('Marker clicked:', dentist);
+            });
+  
         markers.addLayer(marker);
       } else {
         console.error('Invalid coordinates for dentist:', dentist);
       }
     });
-
+  
+    // Check if there's a selected dentist and add its marker
+    if (selectedDentist) {
+        console.log("and one of the dentists is pressed, called ", selectedDentist);
+      const selectedLat = selectedDentist.Latitude || selectedDentist.fakelat;
+      const selectedLng = selectedDentist.Longitude || selectedDentist.fakelong;
+  
+      if (selectedLat !== undefined && selectedLng !== undefined) {
+        const selectedPopupContent = `
+            <div>
+                <strong>${selectedDentist.Address_1}</strong><br>
+                ${selectedDentist.Name}<br>
+                ${selectedDentist.Phone_Number ? `<a href="tel:${selectedDentist.Phone_Number}">${selectedDentist.Phone_Number}</a><br>` : ''}
+                ${selectedDentist.Website ? `<a href="${selectedDentist.Website}" target="_blank" rel="noopener noreferrer">${selectedDentist.Website}</a>` : selectedDentist.URL ? `<a href="${selectedDentist.URL}" target="_blank" rel="noopener noreferrer">${selectedDentist.URL}</a>` : ''}
+            </div>`;
+  
+        // Create a custom icon for the selected dentist
+        const selectedIcon = L.icon({
+          iconUrl: 'path/to/red-marker-icon.png', // Replace with your red icon path
+          iconSize: [40, 60], // Size of the icon
+          iconAnchor: [20, 60], // Point of the icon which will correspond to marker's location
+          popupAnchor: [0, -60], // Point from which the popup should open relative to the iconAnchor
+        });
+  
+        const selectedMarker = L.marker([selectedLat, selectedLng], { icon: selectedIcon })
+            .bindPopup(selectedPopupContent)
+            .on('click', () => {
+                console.log('Selected dentist marker clicked:', selectedDentist);
+            });
+  
+        markers.addLayer(selectedMarker);
+      } else {
+        console.error('Invalid coordinates for selected dentist:', selectedDentist);
+      }
+    }
+  
     markersRef.current.addLayer(markers);
-  }, [dentists]);
-
-  const MapBoundsUpdater = () => {
+  }, [dentists, selectedDentist]);
+  
+  
+  const MapBoundsUpdater = ({ selectedDentist }) => {
     const map = useMap();
-
+    const flyToDuration = 1.5;
+  
+    const flyToChosenDentist = (dentist) => {
+      if (dentist) {
+        const lat = dentist.Latitude || dentist.fakelat;
+        const lng = dentist.Longitude || dentist.fakelong;
+  
+        if (lat !== undefined && lng !== undefined) {
+          map.flyTo([lat, lng], 15, {
+            animate: true,
+            duration: flyToDuration,
+          });
+        }
+      }
+    };
+  
     useEffect(() => {
+      // Check if selectedDentist is valid before flying
+      if (selectedDentist) {
+        console.log("Moving map to:", selectedDentist);
+        flyToChosenDentist(selectedDentist);
+        fetchDentists(map.getBounds);
+      }
+    }, [selectedDentist]);
+  
+    useEffect(() => {
+      console.log("Map move detected, useEffect getting newBounds and refreshing Dentists");
       markersRef.current.addTo(map);
-
+  
       const handleMoveEnd = () => {
         const newBounds = map.getBounds();
         fetchDentists(newBounds);
       };
-
+  
       map.on('moveend', handleMoveEnd);
-
+  
       return () => {
         map.off('moveend', handleMoveEnd);
       };
     }, [map]);
-
-    // useEffect(() => {
-    //     markersRef.current.addTo(map);
-    //     // console.log("i was triggers");
-
-    //     // const handleMoveEnd = () => {
-    //     const newBounds = map.getBounds();
-    //     fetchDentists(newBounds);
-    // //    };
-
-    //     // map.on('moveend', handleMoveEnd);
-
-    //     // return () => {
-    //     // map.off('moveend', handleMoveEnd);
-    //     // };
-    // }, [trigger]);
-
+  
     return null;
   };
+    
 
 //   const FlyToLocation = ({ searchField, initialPosition }) => {
 //     const map = useMap();
@@ -978,16 +1101,17 @@ const DentistMap = ({ searchField, retrigger }) => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', height: '100vh' }}>
       {/* <input type="text" value={searchField2} onChange={handleInputChange} placeholder="Search city..." /> */}
+ 
     <MapContainer 
-      center={userCoordinates} 
-      zoom={12} 
-      style={{ height: '40vw', width: '80%' }} 
-    >
+        center={userCoordinates} 
+        zoom={12} 
+        style={{ height: '100%', width: '100%' }} // Fill the entire column
+      >
       <TileLayer
         url={`https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${process.env.REACT_APP_thunderForestKey}`}
         attribution='&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>'
       />
-      <MapBoundsUpdater />
+      <MapBoundsUpdater selectedDentist={selectedDentist}/>
       {/* <FlyToLocation searchField={searchField} /> */}
 
     </MapContainer>
@@ -1025,7 +1149,7 @@ const handleToggle = () => {
     <NextButton onClick={() => setPage(page + 1)}> <ChevronRightIcon/></NextButton>
         }
     <select onChange={(e) => resetPageSize(Number(e.target.value))} value={pageSize} >
-        <option value={20}>20</option>
+        <option value={10}>10</option>
         <option value={50}>50</option>
         <option value={100}>100</option>
     </select>
@@ -1052,29 +1176,32 @@ const handleToggle = () => {
       </div> */}
 
 <SearchContainer>
-    {/* < > */}
-        {/* <FormLabel component="legend">Search by         
-            Name{"   "}
-            <FormControlLabel value="end" control={<Switch color="secondary" />}
-            label="Location" labelPlacement="end"
-            onClick={handleToggle} />
-            </FormLabel>    */}
-
-            Search by Location{"   "} <Switch color="secondary" onClick={handleToggle}/> Name{"   "}      
-      {/* </> */}
-
-    <input type="text" placeholder={!isOn ? "Search by Dentist Name, Speciality" : userLocation ? userLocation : "Your Address or City..."}
-        className="search-input" value={search}
+      <div className="toggle-container">
+      Search by:{"  "} <span className={!isOn ? 'active-text' : ''}> Location</span>
+        <Switch color="secondary" onClick={handleToggle} />
+        <span className={isOn ? 'active-text' : ''}>Name</span>
+      </div>
+      <div className="vertical-line" />
+      <div className="icon">
+        <svg className="w-5 h-5 text-gray-500" fill="blue" viewBox="0 0 20 20">
+          <path fillRule="evenodd" d="M12.9 14.32a8 8 0 111.414-1.414l4.243 4.243a1 1 0 01-1.414 1.414l-4.243-4.243zM8 14a6 6 0 100-12 6 6 0 000 12z" clipRule="evenodd" />
+        </svg>
+      </div>
+      <input 
+        type="text" 
+        placeholder={!isOn ? "Search by Dentist Name, Speciality" : userLocation ? userLocation : "Your Address or City..."}
+        className="search-input" 
+        value={search}
         onChange={(e) => resetSearch(e.target.value)}
         onMouseLeave={() => setHoveredIndex(null)}
-        // onFocus={() => setIsOpen(true)}
-        />
+      />
+      <div className="vertical-line" />
+      <div className="location-icon">
+        <LocationIcon onClick={() => fetchUserLocation()} />
+      </div>
+    </SearchContainer>
 
-        
 
-<div className="location-icon">
-    < LocationIcon onClick={() => fetchUserLocation()}/>
-        </div>
 {/* 
         <button onClick={() => fetchUserLocation()} >
               {userLocation ? userLocation : 'Find Me '}  < LocationIcon/>
@@ -1087,13 +1214,6 @@ const handleToggle = () => {
         onChange={(e) => resetSearchAddress(e.target.value)}
     /> */}
 
-    <div className="icon">
-        <svg className="w-5 h-5 text-gray-500" fill="blue" viewBox="0 0 20 20">
-        <path fillRule="evenodd" d="M12.9 14.32a8 8 0 111.414-1.414l4.243 4.243a1 1 0 01-1.414 1.414l-4.243-4.243zM8 14a6 6 0 100-12 6 6 0 000 12z" clipRule="evenodd" />
-        </svg>
-    </div>
-
-
     {/* <Controls>
 
         <select onChange={(e) => resetSearchField(e.target.value)} value={searchField}>
@@ -1105,7 +1225,6 @@ const handleToggle = () => {
     </Controls> */}
 
 
-</SearchContainer>
 
     {(suggestions.length > 0 && suggestions[0][searchField]!==search) && (
             <SuggestionsList>
@@ -1129,11 +1248,10 @@ const handleToggle = () => {
 </div>
 </div>
 
+{/* {hoveredIndex ?  */}
       <TwoColumn>
-        <ImageColumn>
-            <DentistMap searchField={search} />
-        </ImageColumn>
-        <TextColumn >
+
+        <LeftColumn >
   
 
 
@@ -1143,19 +1261,24 @@ const handleToggle = () => {
     {/* UNCOMMENT THESE BELOW */}
     <div>
         {filDents.length > 0 ? (
-        <GridContainer>
+        // <GridContainer>
+            <CardList>
+
             {filDents.slice(startIndex, endIndex).map((dentist, index) => (
             <Card key={index} onClick={() => openPopup(dentist)}>
                 <Title>{dentist.Name}</Title>
                 <HighlightedTextInverse>{dentist.Dentist_Type}</HighlightedTextInverse>
+                <HighlightedTextInverse>{dentist.Dentist_Type}</HighlightedTextInverse>
+
                 <i>{dentist.Town_City}</i>
             </Card>
             ))}
-        </GridContainer>
+            </CardList>
+        // {/* </GridContainer> */}
         )
         : (<TextInfo> No results, try adjusting your search... 🙃 </TextInfo>)}
 
-
+{/* 
         <Container>
             <StyledModal closeTimeoutMS={300} className="mainHeroModal" isOpen={modalIsOpen} onRequestClose={toggleModal} shouldCloseOnOverlayClick={true}>
             <CloseModalButton onClick={toggleModal}>
@@ -1166,7 +1289,7 @@ const handleToggle = () => {
             </div>
             </StyledModal>
         </Container>
-
+ */}
 
 
 {/* <MapComponent4 cityName={"London"} /> */}
@@ -1174,8 +1297,17 @@ const handleToggle = () => {
 
         </div>
           
-        </TextColumn>
+        </LeftColumn>
+
+        <RightColumn>
+            <DentistMap searchField={search} selectedDentist={selectedDentist} />
+        </RightColumn>
+
       </TwoColumn>
+
+
+ {/* : "HELLO"} */}
+
     </Container>
    
 
