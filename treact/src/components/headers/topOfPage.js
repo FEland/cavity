@@ -135,13 +135,13 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
                 <button onClick={() => scrollToSection('procedures')} >Procedures</button>
               </NavLink>
 
-              <NavLinks href="/#Features">
+              {/* <NavLinks href="/#Features">
                 <button onClick={() => scrollToSection('features')} >Features</button>
-              </NavLinks>
+              </NavLinks> */}
               
-              <NavLink href="/#Footer">
-              <button onClick={() => scrollToSection('footer')} >Footer</button>
-              </NavLink>
+              {/* <NavLink href="/#Footer">
+              <button onClick={() => scrollToSection('footer')} >Newsletter</button>
+              </NavLink> */}
 
 
               {/* <NavLink href="/#">Contact Us</NavLink> */}
@@ -181,9 +181,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
  */}
 
         <NavLinks key={8}>
-              <NavLink href="/#FAQ" >
-              <button onClick={() => scrollToSection('faq')} >FAQ</button>
-              </NavLink>
+
               <NavLink href="/#Search">
               <button onClick={() => scrollToSection('search')} >Search</button>
               </NavLink>
@@ -194,17 +192,20 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
               {/* <NavLinks href="/#Home">
                 <button onClick={() => scrollToSection('home')} >Home</button>
               </NavLinks> */}
+              <NavLink href="/#FAQ" >
+              <button onClick={() => scrollToSection('faq')} >FAQ</button>
+              </NavLink>
 
               <NavLink href="/#Procedures"> 
                 <button onClick={() => scrollToSection('procedures')} >Procedures</button>
               </NavLink>
 
-              <NavLinks href="/#Features">
+              {/* <NavLinks href="/#Features">
                 <button onClick={() => scrollToSection('features')} >Features</button>
-              </NavLinks>
-              <NavLink href="/#Footer">
+              </NavLinks> */}
+              {/* <NavLink href="/#Footer">
               <button onClick={() => scrollToSection('footer')} >Footer</button>
-              </NavLink>
+              </NavLink> */}
 
 
               {/* <NavLink href="/#">Contact Us</NavLink> */}

@@ -16,8 +16,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 // import Hero3 from "components/hero/FullWidthWithImage.js";
 import Hero from "components/hero/TwoColumnWithInput";
-import AllTogether2 from 'components/cards/AllTogether2';
-
+// import AllTogether2 from 'components/cards/GF';
+// 
 // import TopOfPage from 'components/headers/topOfPage';
 // import Features from "components/features/TwoColSingleFeatureWithStats.js";
 // import MainFeature from "components/features/ThreeColSimple.js"
@@ -35,8 +35,11 @@ import AllTogether2 from 'components/cards/AllTogether2';
 const Features = React.lazy(() => import(/* webpackPrefetch: true */ "components/features/TwoColSingleFeatureWithStats.js"));
 const MainFeature = React.lazy(() => import(/* webpackPrefetch: true */ "components/features/ThreeColSimple.js"));
 const FAQ = React.lazy(() => import(/* webpackPrefetch: true */ "components/faqs/SimpleWithSideImage.js"));
-const SubscribeNewsLetterForm = React.lazy(() => import(/* webpackPrefetch: true */ "components/forms/SimpleSubscribeNewsletter.js"));
+// const SubscribeNewsLetterForm = React.lazy(() => import(/* webpackPrefetch: true */ "components/forms/SimpleSubscribeNewsletter.js"));
 const Footer = React.lazy(() => import(/* webpackPrefetch: true */ "components/footers/MiniCenteredFooter.js"));
+// import Search from 'components/cards/AllTogether2';
+const Search = React.lazy(() => import(/* webpackPrefetch: true */ "components/cards/AllTogether2"));
+
 // const DenGrid3 = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/DenGrid3.js'));
 // const MapSearch = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/MapSearch.js'));
 
@@ -107,11 +110,11 @@ const App = () => {
           {/* <DentistMap searchField="London"/> */}
           {/* <DenGrid3/> */}
           {/* <MapSearch/> */}
-          <AllTogether2/>
+            <Search/>
             <Features/>
             <MainFeature />
             <FAQ />
-            <SubscribeNewsLetterForm />
+            {/* <SubscribeNewsLetterForm /> */}
              <Footer />
 
         {/* </main> */}
