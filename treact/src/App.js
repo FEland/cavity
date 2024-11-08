@@ -1,13 +1,12 @@
 // src/App.jsx
-import React from 'react';
+import React, { useState } from 'react';  // Correct import of useState
 import GlobalStyles from 'styles/GlobalStyles';
-import styled from "styled-components";
+// import styled from "styled-components";
 
-import tw from "twin.macro";
+// import tw from "twin.macro";
 
 import { css } from "styled-components/macro"; //eslint-disable-line
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
-
 
 // import Home from './components/Home';
 // import About from './components/About';
@@ -16,6 +15,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 // import Hero3 from "components/hero/FullWidthWithImage.js";
 import Hero from "components/hero/TwoColumnWithInput";
+import FullScreenLogin from 'FullScreenLogin';
+// import Login from "pages/Login.js"
+
+
+// import ReactModalAdapter from "helpers/ReactModalAdapter.js";
+// import Login from "pages/Login.js"
 // import AllTogether2 from 'components/cards/GF';
 // 
 // import TopOfPage from 'components/headers/topOfPage';
@@ -54,23 +59,35 @@ const Search = React.lazy(() => import(/* webpackPrefetch: true */ "components/c
 // const Services = React.lazy(() => import(/* webpackPrefetch: true */ './components/cards/DenGrid.js'));
 // const Contact = React.lazy(() => import(/* webpackPrefetch: true */ 'components/footers/MiniCenteredFooter.js'));
 
-const Actions = styled.div`
-scroll-behavior: smooth;
+// const Actions = styled.div`
+// scroll-behavior: smooth;
 
-  ${tw`mb-8 lg:mb-0`}
-  .action {
-    ${tw`text-center inline-block w-full sm:w-24 py-4 font-semibold rounded hocus:outline-none focus:shadow-outline transition duration-300 `}
-  }
-  .primaryAction {
-    ${tw`bg-primary-500 text-gray-100 hover:bg-primary-700`}
-  }
-  .secondaryAction {
-    ${tw`mt-4 sm:mt-0 sm:ml-4 bg-gray-300 text-gray-700 hover:bg-gray-400 hover:text-gray-800`}
-  }
-`;
+//   ${tw`mb-8 lg:mb-0`}
+//   .action {
+//     ${tw`text-center inline-block w-full sm:w-24 py-4 font-semibold rounded hocus:outline-none focus:shadow-outline transition duration-300 `}
+//   }
+//   .primaryAction {
+//     ${tw`bg-primary-500 text-gray-100 hover:bg-primary-700`}
+//   }
+//   .secondaryAction {
+//     ${tw`mt-4 sm:mt-0 sm:ml-4 bg-gray-300 text-gray-700 hover:bg-gray-400 hover:text-gray-800`}
+//   }
+// `;
+
+
+
 
 
 const App = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+const handleOpenModal = () => {
+  setIsModalOpen(true);
+};
+
+const handleCloseModal = () => {
+  setIsModalOpen(false);
+};
 
   // const scrollToSection = (id) => {
   //   const element = document.getElementById(id);
@@ -105,26 +122,35 @@ const App = () => {
         {/* <TopOfPage/> */}
 
 {/* <DenGrid4/> */}
-          <Hero />
+          <Hero onOpenModal={handleOpenModal} />
+          {isModalOpen && <FullScreenLogin onClose={handleCloseModal} />}
+
           {/* <AllOnMap7 searchField="London" /> */}
           {/* <DentistMap searchField="London"/> */}
           {/* <DenGrid3/> */}
           {/* <MapSearch/> */}
+          {/* <Login/> */}
+          {!isModalOpen && (
+            <>
             <Search/>
             <Features/>
             <MainFeature />
             <FAQ />
             {/* <SubscribeNewsLetterForm /> */}
              <Footer />
+             </>
+          )
+          }
 
         {/* </main> */}
 
-        <Actions>
+        {/* <Actions>
 
-  <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="action primaryAction bottom-10 right-10 p-4rounded-full z-50 text-2xl font-bold">
+
+  <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="action primaryAction fixed bottom-10 right-10 p-4 rounded-full z-50 text-2xl font-bold">
     ↑
   </button>
-</Actions>
+</Actions> */}
 
       </div>
       </AnimationRevealPage>

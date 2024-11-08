@@ -53,7 +53,7 @@ const CustomersLogoStrip = styled.div`
 
 
 
-export default ({ roundedHeaderButton }) => {
+export default ({ roundedHeaderButton, onOpenModal }) => {
   const [userLocation, setUserLocation] = useState();
 const fetchUserLocation = async () => {
   try {
@@ -72,7 +72,7 @@ const fetchUserLocation = async () => {
 };
   return (
     <>
-      <Header roundedHeaderButton={roundedHeaderButton} />
+      <Header roundedHeaderButton={roundedHeaderButton} onOpenModal={onOpenModal} />
       <Container>
         <TwoColumn>
           <LeftColumn>

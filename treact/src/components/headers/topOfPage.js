@@ -1,14 +1,16 @@
-import React from "react";
+import React from 'react';
 import { motion } from "framer-motion";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
 
 import useAnimatedNavToggler from "../../helpers/useAnimatedNavToggler.js";
+// import Login from "pages/Login.js"
 
 import logo from "../../images/tooth.png";
 import { ReactComponent as MenuIcon } from "feather-icons/dist/icons/menu.svg";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
+
 
 const Header = tw.header`
   flex justify-between items-center
@@ -56,7 +58,7 @@ export const DesktopNavLinks = tw.nav`
   hidden lg:flex flex-1 justify-between items-center
 `;
 
-export default ({ roundedHeaderButton = false, logoLink, links, className, collapseBreakpointClass = "lg" }) => {
+export default ({ roundedHeaderButton = false, logoLink, links, className, collapseBreakpointClass = "lg" , onOpenModal}) => {
   /*
    * This header component accepts an optionals "links" prop that specifies the links to render in the navbar.
    * This links props should be an array of "NavLinks" components which is exported from this file.
@@ -70,23 +72,50 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
    * changing the defaultLinks variable below below.
    * If you manipulate links here, all the styling on the links is already done for you. If you pass links yourself though, you are responsible for styling the links or use the helper styled components that are defined here (NavLink)
    */
-//   const defaultLinks = [
-//     <NavLinks key={4}>
-//       <NavLink href="/#">About</NavLink>
-//       {/* <NavLink href="/#">Blog</NavLink> */}
-//       <NavLink href="/#">Pricing</NavLink>
-//       <NavLink href="/#">Procedures</NavLink>
-//       {/* <NavLink href="/#">Contact Us</NavLink> */}
+  // const defaultLinks = [
+  //   <NavLinks key={4}>
+  //     <NavLink href="/#">About</NavLink>
+  //     {/* <NavLink href="/#">Blog</NavLink> */}
+  //     <NavLink href="/#">Pricing</NavLink>
+  //     <NavLink href="/#">Procedures</NavLink>
+  //     {/* <NavLink href="/#">Contact Us</NavLink> */}
 
 
-//       <NavLink href="/#" tw="lg:ml-12!">
-//         Login
-//       </NavLink>
-//       <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/#">Sign Up</PrimaryLink>
-//     </NavLinks>
-//   ];
+  //     <NavLink href="/#" tw="lg:ml-12!">
+  //       Login
+  //     </NavLink>
+  //     <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/#">Sign Up</PrimaryLink>
+  //   </NavLinks>
+  // ];
 
   const { showNavLinks, animation, toggleNavbar } = useAnimatedNavToggler();
+  // const [showLogin, setShowLogin] = useState(false);
+  // const handleOpenLogin = () => {
+  //   setShowLogin(true);
+  // };
+
+  // const handleCloseLogin = () => {
+  //   setShowLogin(false);
+  // };
+
+  // const handleKeyDown = (event) => {
+  //   if (event.key === 'Escape') {
+  //     handleCloseLogin();
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (showLogin) {
+  //     // Add event listener for Escape key
+  //     window.addEventListener('keydown', handleKeyDown);
+  //   }
+
+  //   return () => {
+  //     // Cleanup the event listener
+  //     window.removeEventListener('keydown', handleKeyDown);
+  //   };
+  // }, [showLogin]);
+
   const collapseBreakpointCss = collapseBreakPointCssMap[collapseBreakpointClass];
  
   const scrollToSection = (id) => {
@@ -110,7 +139,25 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
 //   links = links || defaultLinks;
 
   return (
-    <Header className={className || "header-light"}>
+    <>
+ {/* {showLogin && (
+     <div style={{
+        // position: 'fixed',
+        // top: 0,
+        // left: 0,
+        // right: 0,
+        // bottom: 0,
+        background: 'rgba(0, 0, 0, 0.8)',
+        // display: 'flex',
+        // justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 100,
+      }}>
+ <Login/>
+ </div>
+ )}
+   */}
+  <Header className={className || "header-light"}>
       <DesktopNavLinks css={collapseBreakpointCss.desktopNavLinks}>
         {logoLink}
         <header className="fixed w-full bg-white shadow">
@@ -146,10 +193,20 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
 
               {/* <NavLink href="/#">Contact Us</NavLink> */}
 
-              <NavLink href="/#" tw="lg:ml-12!">
-                Login
-              </NavLink>
-              <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/#">Sign Up</PrimaryLink>
+              {/* <NavLink href="/#Login" tw="lg:ml-12!"> */}
+                
+              <>
+              {/* <div> */}
+      {/* <button onClick={onOpenModal} style={{ padding: '10px 20px', fontSize: '16px' }}>
+        Login
+      </button> */}
+
+      
+    {/* </div> */}
+                </>
+                {/* <Login/> */}
+              {/* </NavLink> */}
+              <PrimaryLink onClick={onOpenModal} css={roundedHeaderButton && tw`rounded-full`}href="/#">Sign Up</PrimaryLink>
             </NavLinks>
 
           {/* <NavLinks ><button onClick={() => scrollToSection('home')} >Home</button>
@@ -210,10 +267,12 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
 
               {/* <NavLink href="/#">Contact Us</NavLink> */}
 
-              <NavLink href="/#" tw="lg:ml-12!">
+              {/* <NavLink href="/#" tw="lg:ml-12!">
                 Login
               </NavLink>
-              <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/#">Sign Up</PrimaryLink>
+              <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/#">Sign Up</PrimaryLink> */}
+              <PrimaryLink onClick={onOpenModal} css={roundedHeaderButton && tw`rounded-full`}href="/#">Sign Up</PrimaryLink>
+
             </NavLinks>
 
 
@@ -223,6 +282,44 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
         </NavToggle>
       </MobileNavLinksContainer>
     </Header>
+
+    {/* {showLogin && (
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'rgba(0, 0, 0, 0.8)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 100,
+      }}>
+        <div style={{
+          background: 'white',
+          padding: '20px',
+          borderRadius: '8px',
+          position: 'relative',
+          // width: '400px', // Adjust width as necessary
+        }}>
+          <button onClick={handleCloseLogin} style={{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            background: 'none',
+            border: 'none',
+            fontSize: '16px',
+            cursor: 'pointer',
+          }}>
+            X
+          </button>
+          <Login />
+          JESLL
+        </div>
+      </div>
+    )} */}
+    </>
   );
 };
 
