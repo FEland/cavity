@@ -33,19 +33,19 @@ export default ({textOnLeft = false}) => {
   const statistics = [
     {
       key: "Countries",
-      value: "6",
+      value: "1",
     },
     {
       key: "Dental Clinics",
-      value: "120",
+      value: "14,000",
     },
     {
       key: "Dentists",
-      value: "2000+",
+      value: "40000+",
     },
     {
       key: "Happy Patients",
-      value: "10347",
+      value: "100,000+",
     }
   ]
 
@@ -58,8 +58,8 @@ export default ({textOnLeft = false}) => {
         </ImageColumn>
         <TextColumn textOnLeft={textOnLeft}>
           <TextContent>
-            <Heading>Europe's Dental Care is broken</Heading>
-            <Description>Discover the easiest way to find a top-notch dentist with us—navigating Europe's chaotic dental landscape has never been simpler!".</Description>
+            <Heading>Better Dental Care</Heading>
+            <Description>Discover the easiest way to find a better dentist services for less - navigating UKs dental landscape has never been simpler!".</Description>
             <Statistics>
               {statistics.map((statistic, index) => (
               <Statistic key={index}>
