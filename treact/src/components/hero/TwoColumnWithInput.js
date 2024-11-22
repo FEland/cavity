@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from "styled-components";
 import tw from "twin.macro";
 //eslint-disable-next-line
 import { css } from "styled-components/macro";
-import { ReactComponent as LocationIcon } from "feather-icons/dist/icons/map-pin.svg";
+// import { ReactComponent as LocationIcon } from "feather-icons/dist/icons/map-pin.svg";
 
 
 import Header from "../headers/topOfPage.js";
@@ -22,15 +22,15 @@ const RightColumn = tw.div`relative mt-12 lg:mt-0 flex-1 flex flex-col justify-c
 const Heading = tw.h1`font-bold text-3xl md:text-3xl lg:text-4xl xl:text-5xl text-gray-900 leading-tight`;
 const Paragraph = tw.p`my-5 lg:my-8 text-base xl:text-lg break-words whitespace-normal` ;
 
-const Actions = styled.div`
-  ${tw`relative max-w-md text-center mx-auto lg:mx-0`}
-  input {
-    ${tw`sm:pr-48 pl-8 py-4 sm:py-5 rounded-full border-2 w-full font-medium focus:outline-none transition duration-300  focus:border-primary-500 hover:border-gray-500`}
-  }
-  button {
-    ${tw`w-full sm:absolute right-0 top-0 bottom-0 bg-primary-500 text-gray-100 font-bold mr-2 my-4 sm:my-2 rounded-full py-4 flex items-center justify-center sm:w-40 sm:leading-none focus:outline-none hover:bg-primary-900 transition duration-300`}
-  }
-`;
+// const Actions = styled.div`
+//   ${tw`relative max-w-md text-center mx-auto lg:mx-0`}
+//   input {
+//     ${tw`sm:pr-48 pl-8 py-4 sm:py-5 rounded-full border-2 w-full font-medium focus:outline-none transition duration-300  focus:border-primary-500 hover:border-gray-500`}
+//   }
+//   button {
+//     ${tw`w-full sm:absolute right-0 top-0 bottom-0 bg-primary-500 text-gray-100 font-bold mr-2 my-4 sm:my-2 rounded-full py-4 flex items-center justify-center sm:w-40 sm:leading-none focus:outline-none hover:bg-primary-900 transition duration-300`}
+//   }
+// `;
 
 const IllustrationContainer = tw.div`flex justify-center lg:justify-end items-center`;
 
@@ -86,10 +86,10 @@ export default ({ roundedHeaderButton, onOpenModal }) => {
               </Actions> */}
 
             {/* </TwoColumn> */}
-            {/* <CustomersLogoStrip>
+            <CustomersLogoStrip>
               <p>Our TRUSTED Customers</p>
               <img src={CustomersLogoStripImage} alt="Our Customers" />
-            </CustomersLogoStrip> */}
+            </CustomersLogoStrip>
           </LeftColumn>
           <RightColumn>
             <IllustrationContainer>
