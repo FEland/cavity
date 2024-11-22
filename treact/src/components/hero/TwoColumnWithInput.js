@@ -8,7 +8,7 @@ import { ReactComponent as LocationIcon } from "feather-icons/dist/icons/map-pin
 
 import Header from "../headers/topOfPage.js";
 // import Header from "../headers/light.js";
-
+ 
 
 import { ReactComponent as SvgDecoratorBlob1 } from "../../images/svg-decorator-blob-1.svg";
 // import DesignIllustration from "../../images/design-illustration-2.svg";
@@ -16,11 +16,11 @@ import CustomersLogoStripImage from "../../images/customers-logo-strip.png";
 
 const Container = tw.div`relative`;
 const TwoColumn = tw.div`flex flex-col lg:flex-row lg:items-center max-w-screen-xl mx-auto py-20 md:py-24`;
-const LeftColumn = tw.div`relative lg:w-5/12 text-center max-w-lg mx-auto lg:max-w-none lg:text-left`;
-const RightColumn = tw.div`relative mt-12 lg:mt-0 flex-1 flex flex-col justify-center lg:self-end`;
+const LeftColumn = tw.div`relative lg:w-6/12 lg:mt-0 text-center max-w-lg mx-auto lg:max-w-none lg:text-left md:ml-12 lg:ml-20`;
+const RightColumn = tw.div`relative mt-12 lg:mt-0 flex-1 flex flex-col justify-center lg:self-end md:mr-12 lg:mr-20`;
 
 const Heading = tw.h1`font-bold text-3xl md:text-3xl lg:text-4xl xl:text-5xl text-gray-900 leading-tight`;
-const Paragraph = tw.p`my-5 lg:my-8 text-base xl:text-lg`;
+const Paragraph = tw.p`my-5 lg:my-8 text-base xl:text-lg break-words whitespace-normal` ;
 
 const Actions = styled.div`
   ${tw`relative max-w-md text-center mx-auto lg:mx-0`}
@@ -51,25 +51,8 @@ const CustomersLogoStrip = styled.div`
 
 
 
-
-
 export default ({ roundedHeaderButton, onOpenModal }) => {
-  const [userLocation, setUserLocation] = useState();
-const fetchUserLocation = async () => {
-  try {
-    const response = await fetch(`https://api.geoapify.com/v1/ipinfo?&apiKey=${process.env.REACT_APP_geoapifyKey }`)
-      // const response = await fetch('https://api.geoapify.com/v1/ipinfo?&apiKey=6010e42b3c0d41b9a34dd332bd1e6d1a')
-      .then(response => response.json());
-      console.log(response);
-      setUserLocation(response.city.name)
-      // userLocationData = response;
-  }
-      // setImgSrc(response.url);
-      // }
-  catch (error) {
-      console.error('No location info:', error);
-      }
-};
+ 
   return (
     <>
       <Header roundedHeaderButton={roundedHeaderButton} onOpenModal={onOpenModal} />
@@ -77,10 +60,17 @@ const fetchUserLocation = async () => {
         <TwoColumn>
           <LeftColumn>
             <Heading>
-              Find The Best Dentists <span tw="text-primary-500">anywhere in the U.K.</span>
+              Find The Best Dentists 
+              </Heading>
+
+            <Heading tw="text-primary-500">anywhere in the U.K
             </Heading>
+            <DecoratorBlob1 />
+
             <Paragraph>
-            Stop stressing. Tooth hurts? We can help. Finding a Dentist has never been so easy.
+            Stop stressing. Tooth hurts? We can help. 
+            <br/>
+            Finding a Dentist has never been so easy.
             </Paragraph>
 
             {/* <Actions>
@@ -88,18 +78,18 @@ const fetchUserLocation = async () => {
               <button onClick={() => fetchUserLocation()}>Get Started</button>
             </Actions> */}
             {/* <TwoColumn> */}
-            <Actions>
+            {/* <Actions>
 
             <button onClick={() => fetchUserLocation()} >
               {userLocation ? userLocation : 'Find Me '}  < LocationIcon/>
             </button>            
-              </Actions>
+              </Actions> */}
 
             {/* </TwoColumn> */}
-            <CustomersLogoStrip>
+            {/* <CustomersLogoStrip>
               <p>Our TRUSTED Customers</p>
               <img src={CustomersLogoStripImage} alt="Our Customers" />
-            </CustomersLogoStrip>
+            </CustomersLogoStrip> */}
           </LeftColumn>
           <RightColumn>
             <IllustrationContainer>

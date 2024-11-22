@@ -1,42 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import { motion } from "framer-motion";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
 
 import useAnimatedNavToggler from "../../helpers/useAnimatedNavToggler.js";
+// import {Container as ContainerBase } from "components/misc/Layouts.js"
+
 // import Login from "pages/Login.js"
 
 import logo from "../../images/tooth.png";
 import { ReactComponent as MenuIcon } from "feather-icons/dist/icons/menu.svg";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 
-
-const Header = tw.header`
+// const Container = tw(ContainerBase)`bg-gray-900 text-gray-100 -mx-8 -mb-8`
+const Header = tw.div`
+  absolute
+  p-5
   flex justify-between items-center
-  max-w-screen-xl mx-auto
+  w-screen // Forces the full width regardless of parent constraints
+  bg-gradient-to-b from-gray-900 to-white // Gradient from gray-900 to white vertically
+  text-gray-100
+  fixed top-0 left-0 lg:z-1 // Set z-index to 0 to send it to the back
+
 `;
 
-export const NavLinks = tw.div`inline-block`;
+
+export const NavLinks = tw.div`inline-block z-10`;
 
 /* hocus: stands for "on hover or focus"
  * hocus:bg-primary-700 will apply the bg-primary-700 class on hover or focus
  */
 export const NavLink = tw.a`
-  text-lg my-2 lg:text-sm lg:mx-6 lg:my-0
+  text-lg my-2 lg:text-sm lg:mx-6 lg:my-0 z-10
   font-semibold tracking-wide transition duration-300
   pb-1 border-b-2 border-transparent hover:border-primary-500 hocus:text-primary-500
 `;
 
 export const PrimaryLink = tw(NavLink)`
   lg:mx-0
-  px-8 py-3 rounded bg-primary-500 text-gray-100
+  px-8 py-3 rounded bg-primary-500 text-gray-100 z-10
   hocus:bg-primary-700 hocus:text-gray-200 focus:shadow-outline
   border-b-0
 `;
 
 export const LogoLink = styled(NavLink)`
-  ${tw`flex items-center font-black border-b-0 text-2xl! ml-0!`};
+  ${tw`flex z-10 items-center font-black border-b-0 text-2xl! ml-0!`};
 
   img {
     ${tw`w-10 mr-3`}
@@ -45,7 +55,7 @@ export const LogoLink = styled(NavLink)`
 
 export const MobileNavLinksContainer = tw.nav`flex flex-1 items-center justify-between`;
 export const NavToggle = tw.button`
-  lg:hidden z-20 focus:outline-none hocus:text-primary-500 transition duration-300
+  lg:hidden z-10 focus:outline-none hocus:text-primary-500 transition duration-300
 `;
 export const MobileNavLinks = motion(styled.div`
   ${tw`lg:hidden z-10 fixed top-0 inset-x-0 mx-4 my-6 p-8 border text-center rounded-lg text-gray-900 bg-white`}
@@ -55,7 +65,8 @@ export const MobileNavLinks = motion(styled.div`
 `);
 
 export const DesktopNavLinks = tw.nav`
-  hidden lg:flex flex-1 justify-between items-center
+  hidden lg:flex top-0 flex-1 justify-between items-center
+  
 `;
 
 export default ({ roundedHeaderButton = false, logoLink, links, className, collapseBreakpointClass = "lg" , onOpenModal}) => {
@@ -136,44 +147,87 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   );
 
   logoLink = logoLink || defaultLogoLink;
+
+  // Styled component for the close button at the top-right of the mobile menu
+  const CloseButton = styled.div`
+  position: absolute;
+  top: 9px;  // You can adjust the distance from the top
+  right: 9px;  // You can adjust the distance from the right
+  cursor: pointer;
+  z-index: 999;  // Ensure it is above other content in the mobile menu
+  `;
+
+    // New state to track scroll position and visibility of the CloseIcon
+    const [hideCloseIcon, setHideCloseIcon] = useState(false);
+
+    // Scroll handler to track when to hide or show CloseIcon
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      // Hide CloseIcon when the user scrolls down, show it again when scrolling up
+      if (scrollPosition > 150) {  // You can adjust the scroll threshold (50) as needed
+        setHideCloseIcon(true);
+      } else {
+        setHideCloseIcon(false);
+      }
+    };
+  
+    useEffect(() => {
+      window.addEventListener('scroll', handleScroll); // Add scroll listener
+  
+      // Cleanup scroll event listener
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []); // Empty dependency array ensures this effect runs only once after the component mounts
+
+    
+
 //   links = links || defaultLinks;
 
   return (
+
     <>
- {/* {showLogin && (
-     <div style={{
-        // position: 'fixed',
-        // top: 0,
-        // left: 0,
-        // right: 0,
-        // bottom: 0,
-        background: 'rgba(0, 0, 0, 0.8)',
-        // display: 'flex',
-        // justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 100,
+ {/* <div     style={{
+        position: 'absolute',    // Fixes the header to the top of the page
+        top: 0,               // Position at the very top of the page
+        left: 0,              // Align to the left edge of the viewport
+        width: '100vw',       // Ensure the header spans the full width of the viewport
+        maxWidth: '100vw',    // Ensure no max-width restrictions
+        margin: 0,            // Remove any default margin
+        padding: '0 16px',    // Add padding (adjust as needed)
+        backgroundColor: '#1a202c', // bg-gray-900 equivalent
+        color: '#edf2f7',     // text-gray-100 equivalent
+        display: 'flex',      // Flexbox layout
+        justifyContent: 'space-between', // Space between items
+        alignItems: 'center', // Center the items vertically
+        zIndex: 1000,           // Ensure it stays above other content
       }}>
- <Login/>
+        hi
  </div>
- )}
    */}
-  <Header className={className || "header-light"}>
+
+  <Header  >
       <DesktopNavLinks css={collapseBreakpointCss.desktopNavLinks}>
         {logoLink}
-        <header className="fixed w-full bg-white shadow">
-          <nav className="flex justify-around p-20">
+
+        {/* <header className="fixed"> */}
+          {/* <nav className="flex justify-around p-20"> */}
 
             <NavLinks key={3}>
-              <NavLink href="/#FAQ" >
-              <button onClick={() => scrollToSection('faq')} >FAQ</button>
-              </NavLink>
+
               <NavLink href="/#Search">
               <button onClick={() => scrollToSection('search')} >Search</button>
               </NavLink>
+
               {/* <NavLink href="/#">Blog</NavLink> */}
               <NavLink href="/#Stats">
                 <button onClick={() => scrollToSection('stats')} >Stats</button>
               </NavLink>
+
+              <NavLink href="/#FAQ" >
+              <button onClick={() => scrollToSection('faq')} >FAQ</button>
+              </NavLink>
+
               {/* <NavLinks href="/#Home">
                 <button onClick={() => scrollToSection('home')} >Home</button>
               </NavLinks> */}
@@ -216,12 +270,19 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
             <button onClick={() => scrollToSection('search')} >Search</button>
             <button onClick={() => scrollToSection('features')} >Features</button>
             </NavLinks> */}
-          </nav>
-        </header>
+          {/* </nav> */}
+        {/* </header> */}
       </DesktopNavLinks>
 
       <MobileNavLinksContainer css={collapseBreakpointCss.mobileNavLinksContainer}>
         {logoLink}
+
+        {/* {showNavLinks && (
+            <CloseButton onClick={toggleNavbar}>
+              <CloseIcon tw="w-6 h-6 text-green-100" /> 
+            </CloseButton>
+          )} */}
+
         <MobileNavLinks initial={{ x: "150%", display: "none" }} animate={animation} css={collapseBreakpointCss.mobileNavLinks}>
           {/* {links} */}
           {/* <header className="fixed w-full bg-white shadow">
@@ -239,19 +300,29 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
 
         <NavLinks key={8}>
 
+        {hideCloseIcon && showNavLinks && (
+            <CloseButton onClick={toggleNavbar}>
+              <CloseIcon tw="w-6 h-6" onClick={toggleNavbar}/> 
+            </CloseButton>
+          )}
               <NavLink href="/#Search">
               <button onClick={() => scrollToSection('search')} >Search</button>
               </NavLink>
               {/* <NavLink href="/#">Blog</NavLink> */}
+
               <NavLink href="/#Stats">
                 <button onClick={() => scrollToSection('stats')} >Stats</button>
               </NavLink>
-              {/* <NavLinks href="/#Home">
-                <button onClick={() => scrollToSection('home')} >Home</button>
-              </NavLinks> */}
+
+
               <NavLink href="/#FAQ" >
               <button onClick={() => scrollToSection('faq')} >FAQ</button>
               </NavLink>
+              
+              {/* <NavLinks href="/#Home">
+                <button onClick={() => scrollToSection('home')} >Home</button>
+              </NavLinks> */}
+
 
               <NavLink href="/#Procedures"> 
                 <button onClick={() => scrollToSection('procedures')} >Procedures</button>
@@ -278,7 +349,9 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
 
         </MobileNavLinks>
         <NavToggle onClick={toggleNavbar} className={showNavLinks ? "open" : "closed"}>
-          {showNavLinks ? <CloseIcon tw="w-6 h-6" /> : <MenuIcon tw="w-6 h-6" />}
+        {!hideCloseIcon && (showNavLinks ? <CloseIcon tw="w-6 h-6" /> : <MenuIcon tw="w-6 h-6" />)}
+
+          {/* {showNavLinks ? <CloseIcon tw="w-6 h-6" /> : <MenuIcon tw="w-6 h-6" />} */}
         </NavToggle>
       </MobileNavLinksContainer>
     </Header>
@@ -320,6 +393,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
       </div>
     )} */}
     </>
+
   );
 };
 

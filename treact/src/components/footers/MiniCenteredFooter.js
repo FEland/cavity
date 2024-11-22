@@ -59,7 +59,6 @@ export default () => {
           <LogoContainer >
             <LogoImg src={logo} />
                     <Actions>
-
             <LogoText>cavity</LogoText>
           </Actions>
 
