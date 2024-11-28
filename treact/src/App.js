@@ -11,11 +11,16 @@ import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 // import Home from './components/Home';
 // import About from './components/About';
 // import Contact from './components/Contact';
-import { BrowserRouter as Router } from 'react-router-dom';
+// import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import ProcedureGrid from "components/cards/ProcedureType.js";
+import ProcedureDentistType from 'components/cards/ProcedureDentistType';
 
 // import Hero3 from "components/hero/FullWidthWithImage.js";
 import Hero from "components/hero/TwoColumnWithInput";
 import FullScreenLogin from 'FullScreenLogin';
+import DentistPage from 'DentistPage';
 // import Login from "pages/Login.js"
 
 
@@ -43,7 +48,7 @@ const FAQ = React.lazy(() => import(/* webpackPrefetch: true */ "components/faqs
 // const SubscribeNewsLetterForm = React.lazy(() => import(/* webpackPrefetch: true */ "components/forms/SimpleSubscribeNewsletter.js"));
 const Footer = React.lazy(() => import(/* webpackPrefetch: true */ "components/footers/MiniCenteredFooter.js"));
 // import Search from 'components/cards/AllTogether2';
-const Search = React.lazy(() => import(/* webpackPrefetch: true */ "components/cards/AllTogether2"));
+const Search = React.lazy(() => import(/* webpackPrefetch: true */ "components/cards/MapSe.js"));
 
 // const DenGrid3 = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/DenGrid3.js'));
 // const MapSearch = React.lazy(() => import(/* webpackPrefetch: true */ 'components/cards/MapSearch.js'));
@@ -103,9 +108,18 @@ const handleCloseModal = () => {
     <>
     <GlobalStyles />
     <Router>
-                <AnimationRevealPage>
+    <Routes>
+
+
+        {/* <AnimationRevealPage> */}
+        <Route path="/dentist/:id" element={<DentistPage />} /> {/* dynamic route */}
+
+      <Route path="/" element={
+
 
       <div>
+      <Hero onOpenModal={handleOpenModal} />
+
         {/* <header className="fixed w-full bg-white shadow">
           <nav className="flex justify-around p-20">
             <button onClick={() => scrollToSection('home')} >Home</button>
@@ -122,8 +136,8 @@ const handleCloseModal = () => {
         {/* <TopOfPage/> */}
 
 {/* <DenGrid4/> */}
-          <Hero onOpenModal={handleOpenModal} />
           {isModalOpen && <FullScreenLogin onClose={handleCloseModal} />}
+
 
           {/* <AllOnMap7 searchField="London" /> */}
           {/* <DentistMap searchField="London"/> */}
@@ -133,6 +147,8 @@ const handleCloseModal = () => {
           {!isModalOpen && (
             <>
             <Search/>
+            {/* <ProcedureGrid/> */}
+            {/* <ProcedureDentistType/> */}
             <Features/>
             <MainFeature />
             <FAQ />
@@ -152,8 +168,13 @@ const handleCloseModal = () => {
   </button>
 </Actions> */}
 
-      </div>
-      </AnimationRevealPage>
+      </div>} />
+      {/* </AnimationRevealPage> */}
+
+      <Route path="/dentist/:id" element={<DentistPage />} /> {/* dynamic route */}
+
+      </Routes>
+
 
     </Router>
 
