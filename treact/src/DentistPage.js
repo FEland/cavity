@@ -440,7 +440,7 @@ function DentistPage() {
               {/* <PostContainer> */}
                 <Post>
                   <StyledMapContainer>
-                    <MapContainer center={initialPosition} zoom={15} style={{ height: '100%', width: '100%' }}>
+                    <MapContainer center={initialPosition} zoom={15} style={{ height: '100%', width: '100%', zIndex: 20}}>
                       <TileLayer
                         url={`https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${process.env.REACT_APP_thunderForestKey}`}
                       />

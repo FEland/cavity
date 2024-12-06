@@ -634,9 +634,9 @@ const Search = () => {
         </CardList>
              )}
 
+{/* MOBILE */}
 
 {isMobile && !showMap && (<CardList>
-    MOBILE
 
           {filteredDentists.map((dentist) => (
             <div 
@@ -805,7 +805,7 @@ const DentistPopup = ({ dentist }) => (
 );
 
 const ZoomLevelDisplay = ({ zoomLevel }) => (
-    <div style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 1000, background: 'white', padding: '5px' }}>
+    <div style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 20, background: 'white', padding: '5px' }}>
       Zoom Level: {zoomLevel}
     </div>
   );
@@ -897,7 +897,7 @@ const ZoomLevelDisplay = ({ zoomLevel }) => (
           center={mapPosition}
           zoom={zoomLevel}
           maxZoom={maxZoomLevel}
-          style={{ height: '100%', width: '100%' }}
+          style={{ height: '100%', width: '100%', zIndex: 10}}
         >
           <TileLayer
             url={`https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${process.env.REACT_APP_thunderForestKey}`}
