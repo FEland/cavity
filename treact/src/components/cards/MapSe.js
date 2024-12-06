@@ -191,8 +191,9 @@ const Search = () => {
     handleLocationSearch(e);
   };
 
-  const fetchInitialDentists = useCallback(async (townCity = 'London') => {
+  const fetchInitialDentists = async (townCity = 'London') => {
     fetchUserLocation();
+
     if (!isMobile) {
       setShowMap(true);
     }
@@ -202,7 +203,6 @@ const Search = () => {
       .select('*')
       .eq('Town_City', townCity)
       
-
     if (error) console.error(error);
     else {
       setDentists(data);
@@ -210,11 +210,18 @@ const Search = () => {
       setCachedDentists(data);
       if (!isMobile) showMap(true);
     }
-  }, [showMap]);
+  };
+
+// useEffect(() => {
+//   fetchUserLocation();
+//   if (!isMobile) {
+//     setShowMap(true);
+//   }
+// }, []);
 
   useEffect(() => {
     fetchInitialDentists();
-  }, [fetchInitialDentists]);
+  }, []);
 
 
   const handleLocationSearch = async (term) => {
@@ -250,7 +257,9 @@ const Search = () => {
       if (error) console.error(error);
       else {
         setFilteredDentists(data);
-        setCachedDentists(prev => [...prev, ...data]);
+        setCachedDentists(data);
+
+        // setCachedDentists(prev => [...prev, ...data]);
       }
     }
     if (showMap) {
@@ -266,7 +275,7 @@ const Search = () => {
       .from('Dentists3')
       .select('*')
       .ilike(searchBy, `%${term}%`)
-      .eq('Town_City', deferredSearchTerm);    // Filter by the Town_City
+      // .eq('Town_City', deferredSearchTerm);    // Filter by the Town_City
 
       if (error) console.error(error);
       else {
