@@ -14,13 +14,18 @@ import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 // import { BrowserRouter as Router } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import ProcedureGrid from "components/cards/ProcedureType.js";
-import ProcedureDentistType from 'components/cards/ProcedureDentistType';
+// import ProcedureGrid from "components/cards/ProcedureType.js";
+// import ProcedureDentistType from 'components/cards/ProcedureDentistType';
 
 // import Hero3 from "components/hero/FullWidthWithImage.js";
 import Hero from "components/hero/TwoColumnWithInput";
 import FullScreenLogin from 'FullScreenLogin';
 import DentistPage from 'DentistPage';
+import LocationPage from 'LocationPage';
+import LocPage from 'LocPage';
+import BoxPage from 'BoxPage';
+
+
 // import Login from "pages/Login.js"
 
 
@@ -113,6 +118,10 @@ const handleCloseModal = () => {
 
         {/* <AnimationRevealPage> */}
         <Route path="/dentist/:id" element={<DentistPage />} /> {/* dynamic route */}
+        <Route path="/locations/" element={<BoxPage />} /> dynamic route
+        {/* <Route path="/locations/" element={<LocPage />} />  */}
+
+        <Route path="/locations/:id" element={<LocationPage />} /> {/* dynamic route */}
 
       <Route path="/" element={
 

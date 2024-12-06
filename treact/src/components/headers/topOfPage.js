@@ -232,8 +232,12 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
                 <button onClick={() => scrollToSection('home')} >Home</button>
               </NavLinks> */}
 
-              <NavLink href="/#Procedures"> 
+              {/* <NavLink href="/#Procedures"> 
                 <button onClick={() => scrollToSection('procedures')} >Procedures</button>
+              </NavLink> */}
+
+              <NavLink href="/Locations"> 
+                <button onClick={() => scrollToSection('locations')} >Locations</button>
               </NavLink>
 
               {/* <NavLinks href="/#Features">
@@ -324,8 +328,12 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
               </NavLinks> */}
 
 
-              <NavLink href="/#Procedures"> 
+              {/* <NavLink href="/#Procedures"> 
                 <button onClick={() => scrollToSection('procedures')} >Procedures</button>
+              </NavLink> */}
+
+              <NavLink href="/Locations"> 
+                <button onClick={() => scrollToSection('locations')} >Locations</button>
               </NavLink>
 
               {/* <NavLinks href="/#Features">

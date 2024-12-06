@@ -10,7 +10,7 @@ import { Container, ContentWithPaddingXl } from 'components/misc/Layouts';
 import tw from 'twin.macro';
 import styled from 'styled-components';
 import 'leaflet/dist/leaflet.css';
-// import L from 'leaflet';
+import L from 'leaflet';
 // import toothIcon from 'images/tooth.png'; // Update with your image path
 import Header from "components/headers/topOfPage.js";
 // import { css } from "styled-components/macro";
@@ -63,7 +63,7 @@ const Heading = tw(
 const Description = tw.p`mt-6 text-center md:text-left text-sm md:text-base lg:text-lg font-medium leading-relaxed text-secondary-100`;
 
 const TestimonialSlider = styled(Slider)`
-  ${tw`w-full mt-10 text-center md:text-left`}
+  ${tw`w-full mt-10 text-center md:text-left rounded-lg mt-4`}
   .slick-track {
     ${tw`flex`}
   }
@@ -128,7 +128,7 @@ const Category = tw.div`uppercase text-primary-500 text-xs font-bold tracking-wi
 // `;
 
 const StyledPopupButton = styled(PopupButton)`
-  ${tw`px-8 py-4 text-xl bg-primary-700 text-white rounded-full transition-all duration-300`}
+  ${tw`px-8 py-4 text-xl bg-primary-700 text-white rounded-full transition-all duration-300 mb-8`}
   &:hover {
     ${tw`bg-purple-700`}
   }
@@ -181,7 +181,7 @@ function DentistPage() {
   // const imageShadow = false;
   const subheading = "Testimonials";
   const heading = "Our Clients Love Us.";
-  // const description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam.";
+  const description = "Reach Out Today";
   const textOnLeft = false;
   const testimonials = [
       {
@@ -202,7 +202,105 @@ function DentistPage() {
         quote:
           "Really nice space, comfortable waiting room, kind staff. Overall good experience",
         customerName: "David Mac",
-        customerTitle: "Father of 4"
+        customerTitle: "Father of 4", 
+      },
+      {
+        stars: 4,
+        profileImageSrc:
+        "https://images.pexels.com/photos/4855373/pexels-photo-4855373.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        heading: "Quick and Painless",
+        quote: "I was in and out of my appointment in no time, and there was no pain.",
+        customerName: "Emily Clark",
+      },
+      {
+        stars: 5,
+        profileImageSrc:
+        "https://images.pexels.com/photos/5876695/pexels-photo-5876695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        heading: "Friendly and Professional",
+        quote:
+          "The staff was incredibly friendly, and the dentist was very professional. Will be back!",
+        customerName: "Olivia Wright",
+      },
+      {
+        stars: 4,
+        profileImageSrc:
+"https://images.pexels.com/photos/6998345/pexels-photo-6998345.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        heading: "Great Location",
+        quote:
+          "Convenient location for me and very easy to find. Loved the experience!",
+        customerName: "Samantha Gold",
+      },
+      {
+        stars: 5,
+        profileImageSrc:
+"https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        heading: "Comfortable and Thorough",
+        quote:
+          "The dentist took the time to explain everything and made me feel very comfortable.",
+        customerName: "Liam Turner",
+      },
+      {
+        stars: 4,
+        profileImageSrc:
+"https://images.pexels.com/photos/769772/pexels-photo-769772.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        heading: "Efficient and Caring",
+        quote:
+          "I really appreciated how quickly the procedure was done while still being gentle.",
+        customerName: "Ethan Martin",
+      },
+      {
+        stars: 5,
+        profileImageSrc:
+"https://images.pexels.com/photos/7298637/pexels-photo-7298637.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        heading: "Great Experience",
+        quote:
+          "I had a fantastic visit. The staff was amazing and the service was top-notch.",
+        customerName: "Mia Davis",
+      },
+      {
+        stars: 5,
+        profileImageSrc:
+"https://images.pexels.com/photos/1984117/pexels-photo-1984117.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        heading: "Highly Recommend",
+        quote:
+          "I would definitely recommend this practice to anyone looking for a new dentist.",
+        customerName: "Sophia Johnson",
+      },
+      {
+        stars: 4,
+        profileImageSrc:
+"https://images.pexels.com/photos/7994398/pexels-photo-7994398.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        heading: "Amazing Staff",
+        quote:
+          "The staff here was incredibly welcoming. I felt very taken care of during my visit.",
+        customerName: "Isabella Green",
+      },
+      {
+        stars: 5,
+        profileImageSrc:
+        "https://images.pexels.com/photos/9482297/pexels-photo-9482297.jpeg?auto=compress&cs=tinysrgb&w=800",
+        heading: "Superb Service",
+        quote:
+          "From the moment I walked in until the moment I left, everything was perfect. Excellent service!",
+        customerName: "Ava Parker",
+      },
+      {
+        stars: 5,
+        profileImageSrc:
+        "https://images.pexels.com/photos/5990911/pexels-photo-5990911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        heading: "Professional and Skilled",
+        quote:
+          "The dentist was both professional and very skilled, which gave me confidence throughout the procedure.",
+        customerName: "Henry Scott",
+      },
+      {
+        stars: 4,
+        profileImageSrc:
+"https://images.pexels.com/photos/5906433/pexels-photo-5906433.jpeg?auto=compress&cs=tinysrgb&w=800",
+        heading: "Comfortable Waiting Room",
+        quote:
+          "The waiting area was cozy and comfortable, and I was seen right on time!",
+        customerName: "Benjamin Brooks",
       }
     ];
   
@@ -346,8 +444,15 @@ function DentistPage() {
                       <TileLayer
                         url={`https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${process.env.REACT_APP_thunderForestKey}`}
                       />
-                      <Marker key={dentist.id} position={[dentist.Latitude, dentist.Longitude]}>
-                        {/* <Popup>{dentist.Address_1}</Popup> */}
+                      <Marker key={dentist.id} 
+                      position={[dentist.Latitude, dentist.Longitude]}
+                      icon={L.divIcon({
+                        className: 'custom-marker',
+                        html: `<div style="background-color: red; width: 20px; height: 20px; border-radius: 50%;"></div>`,
+                      })}
+                      
+                      >
+                        <Popup>{dentist.Address_1}</Popup>
 
                         <DentistPopup dentist={dentist} />
 
@@ -394,9 +499,10 @@ function DentistPage() {
 
           {/* </ImageColumn> */}
           <TextColumn textOnLeft={textOnLeft}>
-            <Subheading>{subheading}</Subheading>
-            <Heading>{heading}</Heading>
-            {/* <Description>{description}</Description> */}
+            
+          {/* <Heading>{heading}</Heading> */}
+          {/* <Description>{description}</Description> */}
+
             <Description>
             {/* <ButtonWrapper> */}
 
@@ -407,8 +513,15 @@ function DentistPage() {
             />
             {/* </ButtonWrapper> */}
             </Description>
+            {'   '}
+            <Subheading>{subheading}</Subheading>
+
+            {/* <Description>{description}</Description> */}
+
             <TestimonialSlider arrows={false} ref={setSliderRef}>
-              {testimonials.map((testimonial, index) => (
+              {testimonials.sort(() => Math.random() - 0.5) // Shuffle the array
+                .slice(0, 4) // Select the first 4 
+                .map((testimonial, index) => (
                 <Testimonial key={index}>
                   <StarsContainer>
                     {Array.from({ length: testimonial.stars }).map((_,indexIcon) => (

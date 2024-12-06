@@ -5,8 +5,9 @@ import tw from "twin.macro";
 import { css } from "styled-components/macro";
 // import { ReactComponent as LocationIcon } from "feather-icons/dist/icons/map-pin.svg";
 
+// import Header from "/headers/topOfPage.js";
+import Header from "components/headers/topOfPage.js";
 
-import Header from "../headers/topOfPage.js";
 // import Header from "../headers/light.js";
  
 
