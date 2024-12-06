@@ -594,6 +594,9 @@ function LocationPage() {
                 </a>
                     <div style={{ margin: '10px 0' }} />
                     <div style={{ fontSize: '0.9em' }}>
+                      <strong>Provider:</strong> {dentist.Provider_Name}
+                    </div>
+                    <div style={{ fontSize: '0.9em' }}>
                       <strong>Address:</strong> {dentist.Address_1}, {dentist.Town_City}, {dentist.Postcode}
                     </div>
                     {dentist.Phone_Number && (

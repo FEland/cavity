@@ -13,9 +13,10 @@ const Content = tw.div`max-w-screen-xl mx-auto py-20 lg:py-24`;
 
 const Row = tw.div`flex items-center justify-center flex-col px-8`
 
-const LogoContainer = tw.div`flex items-center justify-center md:justify-start`;
+const LogoContainer = tw.div`flex items-center self-center justify-center `;
 const LogoImg = tw.img`w-8`;
 const LogoText = tw.h5`ml-2 text-2xl font-black tracking-wider hover:text-gray-700`;
+
 
 // const LinksContainer = tw.div`mt-8 font-medium flex flex-wrap justify-center items-center flex-col sm:flex-row`
 // const Link = tw.a`border-b-2 border-transparent hocus:text-gray-300 hocus:border-gray-300 pb-1 transition duration-300 mt-2 mx-4`;
@@ -56,13 +57,16 @@ export default () => {
         ↑
         </button>
       </Actions> */}
-          <LogoContainer >
+          {/* <LogoContainer > */}
+          <Row>
             <LogoImg src={logo} />
+            {/* </LogoContainer> */}
+
                     <Actions>
             <LogoText>cavity</LogoText>
           </Actions>
+          </Row>
 
-          </LogoContainer>
           {/* <LinksContainer>
             <Link href="#">Home</Link>
             <Link href="#">About</Link>

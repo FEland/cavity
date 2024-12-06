@@ -352,10 +352,12 @@ function DentistPage() {
                   <ContentWithPaddingXl>
 
         <Container>
+
+          
           {/* <ContentWithPaddingXl> */}
-            {/* <HeadingRow>
-              <Heading>{headingText}</Heading>
-            </HeadingRow> */}
+            <HeadingRow>
+              <Heading>{dentist.Name}</Heading>
+            </HeadingRow>
             {/* <Row> */}
             {/* <Posts>
               <PostContainer>
@@ -466,8 +468,12 @@ function DentistPage() {
                         <strong>Specialty:</strong> {dentist.Dentist_Type}
                       </div>
                     </CreationDate>
-                    <strong style={{ fontSize: '1.5em' }}>{dentist.Name}</strong>
                     <div style={{ margin: '10px 0' }} />
+
+                    <div style={{ fontSize: '0.9em' }}>
+                      <strong>Provider:</strong> {dentist.Provider_Name}
+                    </div>
+                    {/* <strong style={{ fontSize: '1.5em' }}>{dentist.Name}</strong> */}
                     <div style={{ fontSize: '0.9em' }}>
                       <strong>Address:</strong> {dentist.Address_1}, {dentist.Town_City}, {dentist.Postcode}
                     </div>
@@ -487,6 +493,7 @@ function DentistPage() {
                       </div>
 
                     ) : null}
+
                       </Category>
 
                   </Info>

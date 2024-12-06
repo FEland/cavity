@@ -756,7 +756,7 @@ const DentistPopup = ({ dentist }) => (
       </div>
       <a
       href={`/dentist/${dentist.id}`}
-      target="_blank"
+      // target="_blank"
       rel="noopener noreferrer"
       style={{
         display: 'inline-flex',   // Use flexbox to align text and arrow side by side
