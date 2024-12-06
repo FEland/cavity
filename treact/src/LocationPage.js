@@ -25,6 +25,7 @@ import "slick-carousel/slick/slick.css";
 // import { SectionHeading } from "components/misc/Headings.js";
 // 
 import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings.js";
+import { PrimaryButton } from 'components/misc/Buttons';
 // import loveIllustrationImageSrc from "images/love-illustration.svg";
 // import { ReactComponent as StarIconBase } from "images/star-icon.svg";
 // import { ReactComponent as ArrowLeftIcon } from "images/arrow-left-3-icon.svg";
@@ -80,6 +81,8 @@ const Heading = tw(
 //     ${tw`h-auto flex justify-center mb-1`}
 //   }
 // `;
+
+
 
 const Controls = styled.div`
   ${tw`flex mt-8 sm:mt-0`}
@@ -480,7 +483,9 @@ function LocationPage() {
           <option value={50}>50</option>
         </select> */}
 
+<PrimaryButton>
         <button onClick={handleSearch}>Search</button>
+        </PrimaryButton>
         </div>
            {(totalPages > 1 ) ?
  <Controls>
@@ -578,7 +583,7 @@ function LocationPage() {
                     </CreationDate>
                     <a
                   href={`/dentist/${dentist.id}`}
-                  target="_blank"
+                  // target="_blank"
                   rel="noopener noreferrer"
                   style={{
                     display: 'inline-flex',   // Use flexbox to align text and arrow side by side

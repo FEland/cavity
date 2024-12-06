@@ -11,35 +11,13 @@ import supabase from 'demos/supabaseClient';
 import { ReactComponent as DiagonalRightUp } from "images/diagonal-arrow-right-up-svgrepo-com.svg";
 import { ReactComponent as ArrowLeftIcon } from "images/arrow-left-3-icon.svg";
 import { ReactComponent as DownArrow } from "images/down-arrow-svgrepo-com (1).svg";
-// import { Button } from '@mui/material';
-// import zIndex from '@mui/material/styles/zIndex';
 
-// import { v4 } from 'uuid';
 
 // Styled components
 const TwoColumn = tw.div`flex flex-col md:flex-row justify-between max-w-screen-xl mx-auto py-0 w-full h-screen`;
 const LeftColumn = tw.div`relative lg:w-6/12 flex flex-col text-center max-w-lg lg:max-w-none lg:text-left border-r border-gray-300 overflow-y-auto`;
 const RightColumn = tw.div`relative lg:w-6/12 flex flex-col justify-center lg:self-end h-full`;
 const CardList = styled.div`${tw`max-h-full overflow-y-auto`}; padding: 20px;`;
-// const SearchContainer = styled.div`
-//   ${tw`relative items-center justify-center w-full px-4 py-4 bg-white border border-gray-300 rounded-full shadow-md mx-5`} 
-//   transition: background-color 0.3s;
-  
-//   &:hover {
-//     background-color: #f7fafc;
-//   }
-
-//   .search-input {
-//     ${tw`flex-grow py-3 px-4 text-gray-700 bg-transparent border-none focus:outline-none`}
-//     border-left: 2px solid #ccc;
-//     border-right: 2px solid #ccc;
-//   }
-
-//   @media (max-width: 640px) {
-//     margin: 0;
-//     width: 90vw;
-//   }
-// `;
 
 const Heading = tw.h1`
   flex text-2xl sm:text-3xl md:text-3xl lg:text-5xl text-primary-500 leading-none items-center
@@ -77,42 +55,6 @@ gap: 16px;
   ${tw`flex-row`};
 }
 `;
-
-// const OpenNewTabButton = (dentist) => {
-//   return (
-//     <button 
-//       className="arrow-button" 
-//       style={styles.button}
-//       onClick={() => window.open(`/dentist/${dentist}`, '_blank')}
-//     >
-//       <span style={styles.arrow}></span>
-//     </button>
-//   );
-// };
-
-// const styles = {
-//   button: {
-//     display: 'inline-flex',
-//     alignItems: 'center',
-//     backgroundColor: '#000000',  // Green background
-//     color: 'purple',
-//     border: 'none',
-//     fontSize: '10px',
-//     padding: '5px 5px',
-//     // cursor: 'pointer',
-//     // position: 'relative',
-//   },
-//   arrow: {
-//     // display: 'inline-block',
-//     // width: '0',
-//     // height: '',
-//     // marginLeft: '10px', // Space between text and arrow
-//     borderLeft: '5px solid transparent',
-//     borderRight: '5px solid transparent',
-//     borderBottom: '5px solid white', // Creates the arrow
-//     transform: 'rotate(45deg)', // Rotates the arrow to face upwards
-//   }
-// };
 
 const bounce = keyframes`
   0% {
@@ -280,9 +222,9 @@ const Search = () => {
     setSearchBy('Town_City');
     setSearchTerm(term);
 
-    console.log(inputValue);
-    console.log(secondInputValue);
-    console.log(placeholder);
+    console.log("inputval", inputValue);
+    console.log("secondinputval", secondInputValue);
+    console.log("placeholder",placeholder);
 
     const filtered = cachedDentists.filter(dentist => 
       dentist[searchBy]?.toLowerCase().startsWith(term.toLowerCase())
@@ -316,62 +258,65 @@ const Search = () => {
       }
   };
   //NO CACHING
-  // const handleNameSearch = async (term) => {
-  //   setSecondSearchTerm(term);
-  //   setSearchBy('Name');
-        
-  //   const { data, error } = await supabase
-  //     .from('Dentists3')
-  //     .select('*')
-  //     .ilike(searchBy, `%${term}%`)
-  //     // .eq('Town_City', deferredSearchTerm);    // Filter by the Town_City
-
-  //     if (error) console.error(error);
-  //     else {
-  //       setFilteredDentists(data);
-  //       setSuggestions([...new Set(data.map(dentist => dentist[searchBy]))].slice(0, 5));
-  //       setCachedDentists(prev => [...prev, ...data]);
-  //     }
-  //   if (isMobile && showMap) {
-  //       setShowMap(false);
-  //     }
-  // };
-//CACHING
   const handleNameSearch = async (term) => {
     setSecondSearchTerm(term);
     setSearchBy('Name');
-    const filtered = cachedDentists.filter(dentist => 
-      dentist[searchBy]?.toLowerCase().startsWith(term.toLowerCase())
-    );
-
-    setSuggestions([...new Set(filtered.map(dentist => dentist[searchBy]))].slice(0, 5));
-    setFilteredDentists(filtered);
-    
-    if (filtered.length > 0) {
-      const firstDentist = filtered[0];
-      const latitude = parseFloat(firstDentist.Latitude);
-      const longitude = parseFloat(firstDentist.Longitude);
-      if (!isNaN(latitude) && !isNaN(longitude)) {
-        setMapPosition([latitude, longitude]);
-      }
-    } else {
-      const { data, error } = await supabase
-        .from('Dentists3')
-        .select('*')
-        .ilike(searchBy, `%${term}%`)
-        // .eq('Town_City', deferredSearchTerm);    // Filter by the Town_City
-
+        
+    const { data, error } = await supabase
+      .from('Dentists3')
+      .select('*')
+      .ilike(searchBy, `%${term}%`)
+      .eq('Town_City', deferredSearchTerm);    // Filter by the Town_City
 
       if (error) console.error(error);
       else {
         setFilteredDentists(data);
-        setCachedDentists(prev => [...prev, ...data]);
+        setSuggestions([...new Set(data.map(dentist => dentist[searchBy]))].slice(0, 5));
+        // setCachedDentists(prev => [...prev, ...data]);
+        setCachedDentists(data);
+
       }
-    }
-    if (showMap) {
+
+    if (isMobile && showMap) {
         setShowMap(false);
       }
   };
+//CACHING
+  // const handleNameSearch = async (term) => {
+  //   setSecondSearchTerm(term);
+  //   setSearchBy('Name');
+  //   const filtered = cachedDentists.filter(dentist => 
+  //     dentist[searchBy]?.toLowerCase().startsWith(term.toLowerCase())
+  //   );
+
+  //   setSuggestions([...new Set(filtered.map(dentist => dentist[searchBy]))].slice(0, 5));
+  //   setFilteredDentists(filtered);
+    
+  //   if (filtered.length > 0) {
+  //     const firstDentist = filtered[0];
+  //     const latitude = parseFloat(firstDentist.Latitude);
+  //     const longitude = parseFloat(firstDentist.Longitude);
+  //     if (!isNaN(latitude) && !isNaN(longitude)) {
+  //       setMapPosition([latitude, longitude]);
+  //     }
+  //   } else {
+  //     const { data, error } = await supabase
+  //       .from('Dentists3')
+  //       .select('*')
+  //       .ilike(searchBy, `%${term}%`)
+  //       // .eq('Town_City', deferredSearchTerm);    // Filter by the Town_City
+
+
+  //     if (error) console.error(error);
+  //     else {
+  //       setFilteredDentists(data);
+  //       setCachedDentists(prev => [...prev, ...data]);
+  //     }
+  //   }
+  //   if (showMap) {
+  //       setShowMap(false);
+  //     }
+  // };
 
 
   // //OLD ALL SEARCHES
@@ -511,7 +456,7 @@ const Search = () => {
             Find Care
           </button>
         </div>
-        {!isMobile && suggestions.length > 0 && (
+        {suggestions.length > 0 && (
           <Actions>
             <SuggestionsList ref={suggestionsRef}>
               {suggestions.map((suggestion, index) => (
@@ -612,13 +557,6 @@ const Search = () => {
 
                 if (!isNaN(latitude) && !isNaN(longitude)) {
                   markerRefs.current[dentist.id].openPopup()
-                //   handleFly([latitude, longitude]);
-                //   setMapPosition([latitude, longitude]);
-                  // s
-                  // Open the corresponding marker popup
-                //   if (markerRefs.current[dentist.id]) {
-                //     markerRefs.current[dentist.id].openPopup();
-                //   }
                 }
               }}
               style={{
@@ -718,10 +656,6 @@ const MapViewUpdater = ({ selectedDentistId, dentists, mapPosition, markerRefs, 
         const longitude = parseFloat(selectedDentist.Longitude);
         if (!isNaN(latitude) && !isNaN(longitude)) {
             map.flyTo([latitude, longitude], Math.max(zoomLevel,16));
-        //   map.setView([latitude, longitude], Math.max(zoomLevel,16));
-        //   if (markerRefs.current[selectedDentistId]) {
-        //     markerRefs.current[selectedDentistId].openPopup();
-        //   }
             setTimeout(() => {
                 if (markerRefs.current[selectedDentistId]) {
                     markerRefs.current[selectedDentistId].openPopup();
@@ -737,14 +671,6 @@ const MapViewUpdater = ({ selectedDentistId, dentists, mapPosition, markerRefs, 
   return null;
 };
 
-// const openTab = (dentistID) => {
-//   const url = `/dentist/${dentistID}`;
-//   // Open the URL in a new tab
-// // Delay to give the browser time to process the current tab action first
-// setTimeout(() => {
-//   window.open(url, '_blank');
-// }, 100);
-// };
 
 const DentistPopup = ({ dentist }) => (
 
@@ -845,31 +771,19 @@ const ZoomLevelDisplay = ({ zoomLevel }) => (
   }) => {
     const [zoomLevel, setZoomLevel] = useState(13); // Default zoom level
     const maxZoomLevel = 18; // Set your desired max zoom level
-    // const isAnimatingRef = useRef(false);
   
     const uniqueDentists = Array.from(
       new Map(dentists.map(dentist => [`${dentist.Address_1}-${dentist.Town_City}`, dentist])).values()
     );
   
     const handleMarkerClick = (dentist, lat, lng, e, zoomLevel) => {
-    //   if (!isAnimatingRef.current) {
-        // console.log(dentist, lat, lng, e, zoomLevel);
-
         setSelectedDentistId(dentist.id);
         setMapPosition([lat, lng]);
-        // e.target._map.setView([lat, lng], Math.max(15, zoomLevel), { animate: true }); // Adjust zoom level for click
         setTimeout(() => {
           e.target.openPopup();
         }, 200);
-    //   }
-    //   else{
-    //     console.log("IDHAK");
-    //   }
     };
   
-    // const handleClusterClick = () => {
-    //   isAnimatingRef.current = true;
-    // };
   
     // Determine if the selected dentist would be clustered at zoom level 17
     const selectedDentist = dentists.find(dentist => dentist.id === selectedDentistId);
@@ -908,16 +822,12 @@ const ZoomLevelDisplay = ({ zoomLevel }) => (
           {shouldShowClusters ? (
             <MarkerClusterGroup
               options={{
-                // key: v4(),
                 maxClusterRadius: 5,
                 disableClusteringAtZoom: 16, // Prevent clustering at zoom level 16 and above
                 spiderfyOnMaxZoom: false,
                 showCoverageOnHover: true,
                 zoomToBoundsOnClick: false,
               }}
-            //   eventHandlers={{
-            //     click: handleClusterClick,
-            //   }}
             >
               {uniqueDentists.map((dentist) => {
                 const lat = parseFloat(dentist.Latitude);
@@ -949,9 +859,6 @@ const ZoomLevelDisplay = ({ zoomLevel }) => (
                       (<Popup>
                         <DentistPopup dentist={dentist} />
                         </Popup>) :
-                    //    (<Popup>
-                    //     CHIPMUNKS
-                    //   </Popup>)
                       null
                     }
                     </Marker>
@@ -991,11 +898,7 @@ const ZoomLevelDisplay = ({ zoomLevel }) => (
                     {selectedDentistId === dentist.id ? 
                       (<Popup>
                         <DentistPopup dentist={dentist} />
-                        {/* {dentist.id} */}
                       </Popup>) :
-                    //    (<Popup>
-                    //     CHIPMUNKS
-                    //   </Popup>)
                     null
                     }
                   </Marker>

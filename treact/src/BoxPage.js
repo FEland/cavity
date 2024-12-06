@@ -28,6 +28,18 @@ SectionHeading
 )`mt-4 font-black text-left text-3xl sm:text-4xl lg:text-5xl text-center md:text-left leading-tight`;
 const Description = tw.p`mt-6 text-center md:text-left text-sm md:text-base lg:text-lg font-medium leading-relaxed text-secondary-100`;
 
+const TownLink = styled.a`
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 16px;
+  color: black;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: blue;  /* Change color on hover */
+  }
+`;
 
 
 
@@ -117,6 +129,9 @@ export default function BoxPage() {
         }
     };
 
+    const [hoveredTown, setHoveredTown] = useState(null);
+
+
     // Listen for window resize events
     useEffect(() => {
         updateColumnsPerRow(); // Set the columns per row on initial load
@@ -185,16 +200,13 @@ export default function BoxPage() {
                                             <ul>
                                                 {townGroup.map((town, townIndex) => (
                                                     <li key={townIndex}>
-                                                      <a href={`/locations/${town}`}
-                                                        // target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        style={{
-                                                          display: 'inline-flex',   // Use flexbox to align text and arrow side by side
-                                                          alignItems: 'center',     // Vertically center text and the arrow
-                                                          textDecoration: 'none',   // Remove underline from link
-                                                          fontSize: '16px',         // Adjust font size
-                                                          color: 'black',           // Text color
-                                                        }}> {town}</a></li>
+                                            <TownLink
+                                                href={`/locations/${town}`}
+                                                rel="noopener noreferrer"
+                                              >
+                                                {town}
+                                              </TownLink>
+                                                        </li>
                                                 ))}
                                             </ul>
                                         </TableCell>
