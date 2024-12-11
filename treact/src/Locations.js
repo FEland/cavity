@@ -46,9 +46,11 @@ const TownLink = styled.a`
   transition: color 0.3s ease;
 
   &:hover {
-    color: blue;  /* Change color on hover */
+    background: whitesmoke;
+    color: rebeccapurple;  /* Change color on hover */
   }
 `;
+
 
 
 
@@ -61,7 +63,7 @@ export default function Locations() {
     const [groupedTowns, setGroupedTowns] = useState({});
     const [columnsPerRow, setColumnsPerRow] = useState(6); // Default number of columns for large screens
 
-    const subheading = "Find your city by first letter";
+    const subheading = "Select your city by first letter";
     const heading = "Locations Served";
 
     // Toggle the expansion of a specific letter
@@ -177,7 +179,7 @@ export default function Locations() {
           <ClipLoader size={50} color="#00BFFF" loading={loading} />
         </div>
       ) : (
-        <Table stickyHeader sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+        <Table stickyHeader size="small" aria-label="a dense table">
                 <TableHead>
                     <TableRow>
                         <TableCell />
@@ -191,7 +193,7 @@ export default function Locations() {
                     {Object.keys(groupedTowns).map(letter => {
                         const townCount = groupedTowns[letter].length; // Get the number of towns for the letter
                         return (
-                            <TableRow key={letter} sx={{ '& > *': { borderBottom: 'unset' } }}>
+                            <TableRow key={letter} >
                                 {/* <TableCell>
                                     <IconButton
                                         aria-label="expand row"
