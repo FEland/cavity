@@ -20,7 +20,16 @@ import GlobalStyles from 'styles/GlobalStyles';
 import { Container, ContentWithPaddingXl } from 'components/misc/Layouts';
 import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings.js";
 
+import { ClipLoader } from 'react-spinners';  // Import ClipLoader
 
+
+  // Inline styles for the spinner container
+  const spinnerContainerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh', // Full viewport height to center vertically
+  };
 
 const Subheading = tw(SubheadingBase)`text-center md:text-left`;
 const Heading = tw(
@@ -43,7 +52,8 @@ const TownLink = styled.a`
 
 
 
-export default function BoxPage() {
+
+export default function Locations() {
     const [towns, setTowns] = useState([]); // State to hold the towns for the current page
     const [loading, setLoading] = useState(true); // State for loading indicator
     const [error, setError] = useState(null); // State for error handling
@@ -70,13 +80,20 @@ export default function BoxPage() {
     // Fetch towns with pagination
     useEffect(() => {
         const fetchTowns = async () => {
+
             try {
+              setLoading(true);  // Set loading to true before the fetch begins
+
                 // Fetch all the Town_City values from the database
                 const { data, error: townsError } = await supabase
                     .from('Dentists3')
                     .select('Town_City'); // Retrieve all Town_City values
 
-                if (townsError) throw townsError; // Handle any errors
+                if (townsError) {
+                  setLoading(false);
+                  throw townsError; // Handle any errors
+
+                }
 
                 // Remove duplicates using Set
                 const uniqueTowns = [...new Set(data.map((item) => item.Town_City))];
@@ -121,7 +138,7 @@ export default function BoxPage() {
     const updateColumnsPerRow = () => {
         const windowWidth = window.innerWidth;
         if (windowWidth < 600) {
-            setColumnsPerRow(18); // For mobile screens, use 3 columns
+            setColumnsPerRow(30); // For mobile screens, use 3 columns
         } else if (windowWidth < 1200) {
             setColumnsPerRow(10); // For tablets, use 4 columns
         } else {
@@ -151,8 +168,15 @@ export default function BoxPage() {
 
                   <Heading>{heading}</Heading>
                 <Subheading>{subheading}</Subheading>
-                  
+
+  
         <TableContainer component={Paper}>
+        {loading ? (
+        // Show spinner while loading
+        <div style={spinnerContainerStyle}>
+          <ClipLoader size={50} color="#00BFFF" loading={loading} />
+        </div>
+      ) : (
         <Table stickyHeader sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                 <TableHead>
                     <TableRow>
@@ -217,6 +241,7 @@ export default function BoxPage() {
                     })}
                 </TableBody>
             </Table>
+             )}
         </TableContainer>
         {/* </Container> */}
         </ContentWithPaddingXl>

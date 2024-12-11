@@ -11,7 +11,7 @@ import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 // import { ReactComponent as TimeIcon } from "feather-icons/dist/icons/clock.svg";
 // import { ReactComponent as TrendingIcon } from "feather-icons/dist/icons/trending-up.svg";
 // // import { ReactComponent as ArrowLeftIcon } from "images/arrow-left-icon.svg";
-// import { ReactComponent as ArrowRightIcon } from "images/arrow-right-icon.svg";
+import { ReactComponent as ArrowRightIcon } from "images/arrow-right-icon.svg";
 // import DentistTypeGrid from "demos/DentistTypeGrid";
 
 const Container = tw.div`relative`;
@@ -65,15 +65,22 @@ const DentistTypesForProcedure = ({ procedureId }) => {
     useEffect(() => {
       const fetchDentistTypes = async () => {
         const { data, error } = await supabase
+          // .from('procedure_dentist_type')
+          // .select('dentist_types')
+          // .eq('procedure_id', procedureId)
+          // .single();
           .from('procedure_dentist_type')
-          .select('dentist_types')
-          .eq('procedure_id', procedureId)
-          .single();
+          .select('*')
+          .eq('procedure_id', '5');
         if (error) { 
             console.error('Error fetching dentist types:', error);
         } else {
-            setDentistTypes(data?.dentist_types || []);
-            console.error(data);
+          // console.log(data);
+            // setDentistTypes(data?.dentist_types || []);
+            setDentistTypes(data);
+            console.log(data);
+
+            // console.error(data);
 
         }
       };
@@ -82,6 +89,8 @@ const DentistTypesForProcedure = ({ procedureId }) => {
   
     return (
       <ul>
+        hi
+        {/* {dentistTypes} */}
         {dentistTypes.map((type, index) => (
           <li key={index}>{type.name}</li>
         ))}
@@ -138,29 +147,26 @@ export default () => {
   return (
     <Container>
       <Content>
-        <ThreeColumn>
-          
-          <HeadingColumn>
+      <HeadingColumn>
             <HeadingInfoContainer>
-            INPUT ME
-            <input
-                type="text"
-                placeholder="Search Procedures"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
+            <input type="text" placeholder="Search Procedures"
+                value={search} onChange={(e) => setSearch(e.target.value)}
             />
 
 
-            <button onClick={() => setPage(page + 1)}> <HeadingTitle>Types of Procedures</HeadingTitle> </button>
+            {/* <button onClick={() => setPage(page + 1)}> <HeadingTitle>Types of Procedures</HeadingTitle> </button>
             <button onClick={() => setPage(page > 1 ? page - 1 : 1)}> <HeadingDescription>  Services offered. </HeadingDescription> </button>
               <PrimaryLink>
               {page}/7 Explore more <ArrowRightIcon /> 
               </PrimaryLink>
-              {/* <button onClick={() => DentistTypesForProcedurep(id)}> <HeadingTitle>Types of Procedures</HeadingTitle> </button> */}
+              <button onClick={() => DentistTypesForProcedurep(id)}> <HeadingTitle>Types of Procedures</HeadingTitle> </button> */}
 
 
             </HeadingInfoContainer>
           </HeadingColumn>
+        <ThreeColumn>
+          
+     
 
           {/* <select onChange={(e) => setPageSize(Number(e.target.value))} value={pageSize}>
             <option value={10}>10</option>
@@ -175,8 +181,7 @@ export default () => {
                 <CardText>
                     <CardHeader>
                             <h3>{procedure.name}</h3>
-                            {/* <h3>{procedure.id}</h3> */}
-                 
+                            <h3>{procedure.id}</h3>
 
                             <DentistTypesForProcedure procedureId={procedure.id} />
                     </CardHeader>

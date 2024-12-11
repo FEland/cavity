@@ -9,7 +9,8 @@ import FullScreenLogin from 'FullScreenLogin';
 import DentistPage from 'DentistPage';
 import LocationPage from 'LocationPage';
 import LocPage from 'LocPage';
-import BoxPage from 'BoxPage';
+import Locations from 'Locations';
+
 
 const Features = React.lazy(() => import(/* webpackPrefetch: true */ "components/features/TwoColSingleFeatureWithStats.js"));
 const MainFeature = React.lazy(() => import(/* webpackPrefetch: true */ "components/features/ThreeColSimple.js"));
@@ -41,8 +42,10 @@ const handleCloseModal = () => {
 
 
         <Route path="/dentist/:id" element={<DentistPage />} /> {/* dynamic route */}
-        <Route path="/locations/" element={<BoxPage />} />
-        {/* <Route path="/locations/" element={<LocPage />} />  */}
+        <Route path="/locations/" element={<Locations />} />
+
+        <Route path="/TownSearch/" element={<LocPage />} /> 
+
 
         <Route path="/locations/:id" element={<LocationPage />} /> {/* dynamic route */}
       <Route path="/dentist/:id" element={<DentistPage />} /> {/* dynamic route */}

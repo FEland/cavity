@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import supabase from 'demos/supabaseClient';
 import GlobalStyles from 'styles/GlobalStyles';
+// import { ClipLoader } from 'react-spinners';  // Import ClipLoader
+
 // import {  Popup } from 'react-leaflet';
 // import { PopupButton } from 'react-calendly';
 import AnimationRevealPage from 'helpers/AnimationRevealPage.js';
@@ -242,20 +244,31 @@ function LocationPage() {
     const [error, setError] = useState(null);
     const [previousSearchTerm, setPrevSearchTerm] = useState(null);
 
+    // const [loading, setLoading] = useState(true); // Track loading state
+
+
     useEffect(() => {
       const fetchTowns = async () => {
+        // setLoading(true);  // Set loading to true before the fetch begins
+
             // Fetch all the Town_City values from the database
             const { data, error} = await supabase
                 .from('Dentists3')
                 .select('Town_City'); // Retrieve all Town_City values
 
-            if (error) throw error; // Handle any errors
+            if (error){
+              // setLoading(false); // Stop loading on error
+              console.error(error);
+              return;
+            } 
 
             // Remove duplicates using Set
             const uniqueTowns = [...new Set(data.map((item) => item.Town_City))];
             // Sort the unique towns alphabetically
             uniqueTowns.sort((a, b) => a.localeCompare(b));
             setAllTowns(uniqueTowns); // Set the towns for the current page
+            // setLoading(false); // Set loading to false once data is fetched
+
       };
 
       fetchTowns(); // Call the fetch function
@@ -543,13 +556,13 @@ function LocationPage() {
 
 
 
-                    <div
+                    {/* <div
         style={{
           maxHeight: '500px',
           overflowY: 'auto',
           padding: '10px',
         }}
-      >
+      > */}
         <Container>
           <Row>
           {/* <ImageColumn> */}
@@ -652,7 +665,7 @@ function LocationPage() {
                     </Row> */}
 
         </Container>
-        </div>
+        {/* </div> */}
 
                   </ContentWithPaddingXl>
 
